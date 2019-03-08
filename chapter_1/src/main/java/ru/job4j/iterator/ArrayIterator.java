@@ -17,14 +17,15 @@ public class ArrayIterator implements Iterator<Integer> {
     /**
      * Хранит индекс строик массива
      */
-    private int indexI = 0;
+    private int rowCell = 0;
     /**
      * Хранит индекс столбца массива
      */
-    private int indexJ = 0;
+    private int columnCell = 0;
 
     /**
      * Конструктор
+     *
      * @param ints входящий массив
      */
     public ArrayIterator(int[][] ints) {
@@ -33,29 +34,30 @@ public class ArrayIterator implements Iterator<Integer> {
 
     /**
      * Метод проверяет наличие следующего элемента в мсассиве
+     *
      * @return есть элемент / нет элемента
      */
     @Override
     public boolean hasNext() {
-        return indexI < values.length;
+        return rowCell < values.length;
     }
 
     /**
      * Метод возвращает текущий элемент массива и сдвигает каретку (указатель) на следующий элемент
+     *
      * @return элемент массива
      */
     @Override
     public Integer next() throws NoSuchElementException {
-        Integer result = values[indexI][indexJ];
-        if (hasNext()) {
-            indexJ++;
-            if (indexJ == values[indexI].length) {
-                indexJ = 0;
-                indexI++;
-            }
-        } else {
-           throw  new NoSuchElementException ("Конец списка");
+        if (!hasNext()) {
+            throw new NoSuchElementException("End of List");
         }
+        Integer result = values[rowCell][columnCell];
+        columnCell++;
+        if (columnCell == values[rowCell].length) {
+            columnCell = 0;
+            rowCell++;
+            }
         return result;
     }
 }
