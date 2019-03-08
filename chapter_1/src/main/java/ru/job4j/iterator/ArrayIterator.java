@@ -1,6 +1,7 @@
 package ru.job4j.iterator;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * @author Sergey Baikov
@@ -44,7 +45,7 @@ public class ArrayIterator implements Iterator<Integer> {
      * @return элемент массива
      */
     @Override
-    public Integer next() {
+    public Integer next() throws NoSuchElementException {
         Integer result = values[indexI][indexJ];
         if (hasNext()) {
             indexJ++;
@@ -52,6 +53,8 @@ public class ArrayIterator implements Iterator<Integer> {
                 indexJ = 0;
                 indexI++;
             }
+        } else {
+           throw  new NoSuchElementException ("Конец списка");
         }
         return result;
     }
