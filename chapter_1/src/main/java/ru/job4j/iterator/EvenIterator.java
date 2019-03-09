@@ -1,58 +1,62 @@
 package ru.job4j.iterator;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
+/**
+ * @author Sergey Baikov
+ * @version $ 1 $
+ * @since 09.03.19
+ */
 public class EvenIterator implements Iterator<Integer> {
 
+    /**
+     * Contains array.
+     */
     private final int[] values;
 
+    /**
+     * Contains array current index.
+     */
     private int index = 0;
 
+    /**
+     * Constructor.
+     * @param ints input array.
+     */
     public EvenIterator(int[] ints) {
         this.values = ints;
     }
 
-
+    /**
+     * Returns {@code true} if iteration has more even numbers.
+     * @return {@code true} if iteration has more even numbers
+     */
     @Override
     public boolean hasNext() {
         boolean result = false;
-        if (index < values.length) {
-            for (int i = index; i < values.length; i++) {
-                if (values[i] % 2 == 0) {
-                    result = true;
-                    break;
-                }
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public Integer next() {
-        int result = values[index];
-        if (!isEven() & hasNext()) {
-            int i = closeEvenIndex();
-            result = values[i];
-            index = i;
-                if (hasNext()) {
-                    index = closeEvenIndex();
-                }
-        }
-        return result;
-    }
-
-    public boolean isEven() {
-        return values[index] % 2 == 0;
-    }
-
-    public int closeEvenIndex() {
-        int result = index;
-        for (int i = result; i < values.length; i++) {
+        for (int i = index; i < values.length; i++) {
             if (values[i] % 2 == 0) {
-                result = i;
+                index = i;
+                result = true;
                 break;
             }
         }
+        return result;
+    }
+
+    /**
+     * Returns the next even number in the iteration.
+     * @return the next even number in the iteration
+     * @throws NoSuchElementException if iteration has no even numbers
+     */
+    @Override
+    public Integer next() throws NoSuchElementException {
+        int result;
+        if (!hasNext()) {
+            throw  new NoSuchElementException ("End of list");
+        }
+        result = values[index++];
         return result;
     }
 }
