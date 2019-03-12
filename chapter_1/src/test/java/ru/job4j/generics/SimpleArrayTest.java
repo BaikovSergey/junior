@@ -41,10 +41,10 @@ public class SimpleArrayTest {
         array.add(2);
         array.add(3);
         array.add(4);
-        array.remove(0);
-        assertThat(array.get(0), is(2));
-        assertThat(array.get(1), is(3));
-        assertThat(array.get(2), is(4));
+        array.remove(3);
+        assertThat(array.get(0), is(1));
+        assertThat(array.get(1), is(2));
+        assertThat(array.get(2), is(3));
         assertThat(array.get(3), is(IsNull.nullValue()));
     }
 

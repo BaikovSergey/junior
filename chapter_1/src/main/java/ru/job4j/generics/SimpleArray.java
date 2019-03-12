@@ -47,7 +47,7 @@ public class SimpleArray<T> implements Iterable<T> {
      * @throws IndexOutOfBoundsException
      */
     public void set(int index, T model) throws IndexOutOfBoundsException {
-        if (index >= this.array.length) {
+        if (index >= this.index) {
             throw new IndexOutOfBoundsException();
         }
         this.array[index] = model;
@@ -62,12 +62,26 @@ public class SimpleArray<T> implements Iterable<T> {
         if (index >= this.array.length) {
             throw new IndexOutOfBoundsException();
         }
-        for (int i = index; i < this.index - 1; i++) {
-            T temp = (T) array[i + 1];
-            array[i] = temp;
+        if (index == 0) {
+            System.arraycopy(this.array,
+                    1,
+                    this.array,
+                    0,
+                    this.arrayLength - 1);
+        } else {
+            System.arraycopy(this.array,
+                    0,
+                    this.array,
+                    0,
+                    this.arrayLength - (this.arrayLength - index));
+            System.arraycopy(this.array,
+                    index + 1,
+                    this.array,
+                    index,
+                    this.arrayLength - (index + 1));
         }
         this.index--;
-        array[this.index] = null;
+        this.array[this.index] = null;
     }
 
     /**
@@ -95,7 +109,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
             @Override
             public boolean hasNext() {
-                return index < arrayLength && array[index] != null;
+                return index < SimpleArray.this.index && array[index] != null;
             }
 
             @Override
