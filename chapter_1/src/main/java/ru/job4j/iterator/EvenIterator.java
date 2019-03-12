@@ -54,7 +54,7 @@ public class EvenIterator implements Iterator<Integer> {
     public Integer next() throws NoSuchElementException {
         int result;
         if (!hasNext()) {
-            throw  new NoSuchElementException ("End of list");
+            throw  new NoSuchElementException("End of list");
         }
         result = values[index++];
         return result;
