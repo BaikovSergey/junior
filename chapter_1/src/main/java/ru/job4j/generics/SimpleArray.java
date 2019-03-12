@@ -2,6 +2,11 @@ package ru.job4j.generics;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ * @author Sergey Baikov
+ * @version $ 1 $
+ * @since 12.03.19
+ */
 public class SimpleArray<T> implements Iterable<T> {
 
     /**

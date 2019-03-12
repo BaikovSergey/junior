@@ -6,7 +6,11 @@ import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-
+/**
+ * @author Sergey Baikov
+ * @version $ 1 $
+ * @since 12.03.19
+ */
 public class SimpleArrayTest {
 
     /**
