@@ -67,24 +67,11 @@ public class SimpleArray<T> implements Iterable<T> {
         if (index >= this.array.length) {
             throw new IndexOutOfBoundsException();
         }
-        if (index == 0) {
-            System.arraycopy(this.array,
-                    1,
-                    this.array,
-                    0,
-                    this.arrayLength - 1);
-        } else {
-            System.arraycopy(this.array,
-                    0,
-                    this.array,
-                    0,
-                    this.arrayLength - (this.arrayLength - index));
-            System.arraycopy(this.array,
+        System.arraycopy(this.array,
                     index + 1,
                     this.array,
                     index,
                     this.arrayLength - (index + 1));
-        }
         this.index--;
         this.array[this.index] = null;
     }

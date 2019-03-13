@@ -39,7 +39,41 @@ public class SimpleArrayTest {
      * Test remove
      */
     @Test
-    public void thenRemoveObjectWhenThisObjectInIndexZero() {
+    public void thenRemoveFirstObjectWhen234Null() {
+        SimpleArray<Integer> array = new SimpleArray<>(4);
+        array.add(1);
+        array.add(2);
+        array.add(3);
+        array.add(4);
+        array.remove(0);
+        assertThat(array.get(0), is(2));
+        assertThat(array.get(1), is(3));
+        assertThat(array.get(2), is(4));
+        assertThat(array.get(3), is(IsNull.nullValue()));
+    }
+
+    /**
+     * Test remove
+     */
+    @Test
+    public void thenRemoveSecondObjectWhen134Null() {
+        SimpleArray<Integer> array = new SimpleArray<>(4);
+        array.add(1);
+        array.add(2);
+        array.add(3);
+        array.add(4);
+        array.remove(1);
+        assertThat(array.get(0), is(1));
+        assertThat(array.get(1), is(3));
+        assertThat(array.get(2), is(4));
+        assertThat(array.get(3), is(IsNull.nullValue()));
+    }
+
+    /**
+     * Test remove
+     */
+    @Test
+    public void thenRemoveLastObjectWhen234Null() {
         SimpleArray<Integer> array = new SimpleArray<>(4);
         array.add(1);
         array.add(2);
