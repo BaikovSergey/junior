@@ -20,6 +20,22 @@ public class SimpleArray<T> implements Iterable<T> {
     private int arrayLength;
 
     /**
+     * Getter
+     * @return array index.
+     */
+    public int getIndex() {
+        return index;
+    }
+
+    /**
+     * Getter
+     * @return array length
+     */
+    public int getArrayLength() {
+        return arrayLength;
+    }
+
+    /**
      * Base array.
      */
     private Object[] array;
