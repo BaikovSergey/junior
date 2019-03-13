@@ -58,7 +58,7 @@ public class SimpleArray<T> implements Iterable<T> {
         if (this.index >= this.array.length) {
             throw new IndexOutOfBoundsException();
         }
-        this.array[index++] = model;
+        this.array[this.index++] = model;
     }
 
     /**
@@ -99,7 +99,7 @@ public class SimpleArray<T> implements Iterable<T> {
      * @throws IndexOutOfBoundsException
      */
     public T get(int index) throws IndexOutOfBoundsException {
-        if (index >= this.array.length) {
+        if (index > this.index) {
             throw new IndexOutOfBoundsException();
         }
        return (T) this.array[index];
