@@ -58,7 +58,7 @@ public class DinamicArray<E> implements Iterable<E> {
                 if (fastFail()) {
                     throw new ConcurrentModificationException();
                 }
-                return index < DinamicArray.this.index && container[index] != null;
+                return index < DinamicArray.this.index;
             }
 
             @Override
