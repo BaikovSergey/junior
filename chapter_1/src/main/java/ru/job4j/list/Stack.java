@@ -5,12 +5,14 @@ public class Stack<T> {
     private SimpleArrayList<T> stack = new SimpleArrayList<>();
 
     public T poll() {
-        T result = this.stack.get(0);
-        this.stack.delete();
-        return result;
+        return stack.delete();
     }
 
     public void push(T value) {
         this.stack.add(value);
+    }
+
+    public boolean isEmpty() {
+        return this.stack.isEmpty();
     }
 }
