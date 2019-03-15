@@ -41,6 +41,7 @@ public class LikedContainer<E> implements Iterable<E> {
         Iterator<E> it = new Iterator<E>() {
             private Node<E> current = first;
             private int expectedModCount = getModCount();
+            int counter = 0;
 
             @Override
             public boolean hasNext() throws ConcurrentModificationException {
@@ -48,8 +49,9 @@ public class LikedContainer<E> implements Iterable<E> {
                 if (fastFail()) {
                     throw new ConcurrentModificationException();
                 }
-                if (current.next != null) {
+                if (counter < getSize()) {
                     result = true;
+                    counter++;
                 }
                 return result;
             }
