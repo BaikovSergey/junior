@@ -58,4 +58,8 @@ public class SimpleArrayList<E> {
             this.date = date;
         }
     }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
 }
