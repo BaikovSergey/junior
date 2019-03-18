@@ -15,7 +15,7 @@ public class SimpleSet<E> {
         boolean result = false;
         for (E element: set
              ) {
-            if (element.equals(model)) {
+            if (element != null && element.equals(model)) {
                 result = true;
                 break;
             }
@@ -24,7 +24,7 @@ public class SimpleSet<E> {
     }
 
     public void add(E model) {
-        if (model != null && !duplicate(model)) {
+        if (!duplicate(model)) {
             set.add(model);
         }
     }
