@@ -24,7 +24,7 @@ public class SimpleSet<E> {
     }
 
     public void add(E model) {
-        if (!duplicate(model)) {
+        if (model != null && !duplicate(model)) {
             set.add(model);
         }
     }

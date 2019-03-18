@@ -16,13 +16,14 @@ public class SimpleSetTest {
     public void beforeTest() {
         set = new SimpleSet<>(2);
         set.add(1);
-        set.add(1);
+        set.add(null);
+        set.add(2);
     }
 
     @Test
     public void whenAddOneAndOneThenOne() {
         assertThat(set.get(0), is(1));
-        assertThat(set.get(1), is(IsNull.nullValue()));
+        assertThat(set.get(1), is(2));
     }
 
 }
