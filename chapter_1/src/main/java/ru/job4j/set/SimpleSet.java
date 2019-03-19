@@ -2,8 +2,10 @@ package ru.job4j.set;
 
 import ru.job4j.list.DinamicArray;
 
+import java.util.Iterator;
 
-public class SimpleSet<E> {
+
+public class SimpleSet<E> implements Iterable<E> {
 
     private DinamicArray<E> set;
 
@@ -13,11 +15,20 @@ public class SimpleSet<E> {
 
     public boolean duplicate(E model) {
         boolean result = false;
-        for (E element: set
-             ) {
-            if (element != null && element.equals(model)) {
-                result = true;
-                break;
+        if (model == null) {
+            for (E element: set) {
+                if (element == null) {
+                    result = true;
+                    break;
+                }
+            }
+        } else {
+            for (E element: set
+            ) {
+                if (element != null && element.equals(model)) {
+                    result = true;
+                    break;
+                }
             }
         }
         return result;
@@ -31,5 +42,10 @@ public class SimpleSet<E> {
 
     public E get(int index) {
        return set.get(index);
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return set.iterator();
     }
 }
