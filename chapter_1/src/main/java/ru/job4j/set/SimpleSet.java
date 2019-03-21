@@ -15,22 +15,12 @@ public class SimpleSet<E> implements Iterable<E> {
 
     public boolean duplicate(E model) {
         boolean result = false;
-        if (model == null) {
             for (E element: set) {
-                if (element == null) {
+                if (element == model || element != null && element.equals(model)) {
                     result = true;
                     break;
                 }
             }
-        } else {
-            for (E element: set
-            ) {
-                if (element != null && element.equals(model)) {
-                    result = true;
-                    break;
-                }
-            }
-        }
         return result;
     }
 
