@@ -22,6 +22,5 @@ public class Node<E extends Comparable<E>> {
 
     public boolean eqValue(E that) {
         return this.value.compareTo(that) == 0;
-
     }
 }

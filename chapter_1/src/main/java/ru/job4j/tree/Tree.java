@@ -1,11 +1,8 @@
 package ru.job4j.tree;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Optional;
-import java.util.Queue;
+import java.util.*;
 
-public class Tree<E extends Comparable<E>>  implements SimpleTree{
+public class Tree<E extends Comparable<E>> implements Iterable<E>, SimpleTree<E> {
 
     /**
      * Root of the tree
@@ -22,7 +19,13 @@ public class Tree<E extends Comparable<E>>  implements SimpleTree{
 
     @Override
     public boolean add(E parent, E child) {
-        return false;
+        boolean result = false;
+        Optional<Node<E>> node = findBy(parent);
+        if (!duplicate(child) && !node.equals(Optional.empty())) {
+            Node<E> leaf = new Node<>(child);
+            node.get().add(leaf);
+        }
+        return result;
     }
 
     @Override
@@ -43,8 +46,35 @@ public class Tree<E extends Comparable<E>>  implements SimpleTree{
         return rsl;
     }
 
+    public boolean duplicate(E value) {
+        boolean result = false;
+        Optional<Node<E>> node = findBy(value);
+        if (!node.equals(Optional.empty())) {
+            result = true;
+        }
+        return result;
+    }
+
     @Override
-    public Iterator iterator() {
-        return null;
+    public Iterator<E> iterator() {
+        Iterator<E> it = new Iterator<E>() {
+
+            int counter = 0;
+
+            @Override
+            public boolean hasNext() throws ConcurrentModificationException {
+                return true;
+            }
+
+            @Override
+            public E next() throws NoSuchElementException {
+                if (!hasNext()) {
+                    throw new NoSuchElementException("End of List");
+                }
+                return null;
+            }
+
+        };
+        return it;
     }
 }
