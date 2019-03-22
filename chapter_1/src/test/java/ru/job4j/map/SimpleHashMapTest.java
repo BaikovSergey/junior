@@ -30,4 +30,17 @@ public class SimpleHashMapTest {
         assertThat(map.get(1), is(IsNull.nullValue()));
     }
 
+    @Test
+    public void getElementAfterGrow() {
+        System.out.println(map.getSize());
+        System.out.println(map.getLength());
+        int key = 0;
+        for (int i = 0; i < 12; i++) {
+            map.insert(key, i);
+            key++;
+        }
+        System.out.println(map.getSize());
+        System.out.println(map.getLength());
+        assertThat(map.getLength(), is(32));
+    }
 }

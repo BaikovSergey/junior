@@ -7,6 +7,14 @@ import java.util.NoSuchElementException;
 public class SimpleHashMap<K, V> implements Iterable<V> {
 
     /**
+     * Constructor
+     */
+    public SimpleHashMap() {
+        this.container = new Node[16];
+        this.length = 16;
+    }
+
+    /**
      * Current map size.
      */
     private int size = 0;
@@ -19,25 +27,17 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
     /**
      *
      */
-    private final double loadFactor = 0.75;
+    private final double loadFactor = 0.75d;
 
     /**
      *
      */
-    private double threshold = length * loadFactor;
+    private double threshold = this.length * this.loadFactor;
 
     /**
      * Array
      */
     private Node[] container;
-
-    /**
-     * Constructor
-     */
-    public SimpleHashMap() {
-        this.container = new Node[16];
-        this.length = 16;
-    }
 
     /**
      * Method determinate in witch cell new element will be put
@@ -66,7 +66,7 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
      * @return true/false
      */
     public boolean insert(K key, V value) {
-        if (size >= threshold) {
+        if (size > threshold) {
             this.container = Arrays.copyOf(this.container, this.length * 2);
             this.length = this.container.length;
         }
@@ -74,10 +74,12 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
         int hash = indexFor(hash(key), this.length);
         if (hash == 0 && container[0] == null) {
             container[0] = new Node(key, value);
+            size++;
             result = true;
         } else {
             if (container[hash] == null) {
                 container[hash] = new Node(key, value);
+                size++;
                 result = true;
             }
         }
@@ -113,6 +115,17 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
         return result;
     }
 
+    public int getLength() {
+        return length;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public double getLoadFactor() {
+        return loadFactor;
+    }
 
     @Override
     public Iterator<V> iterator() {
