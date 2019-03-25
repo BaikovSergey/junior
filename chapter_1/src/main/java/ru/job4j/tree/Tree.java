@@ -59,21 +59,33 @@ public class Tree<E extends Comparable<E>> implements Iterable<E>, SimpleTree<E>
     public Iterator<E> iterator() {
         Iterator<E> it = new Iterator<E>() {
 
-            int counter = 0;
+            Queue<Node<E>> data = new LinkedList<>();
+            Node<E> currentNode = root;
 
             @Override
-            public boolean hasNext() throws ConcurrentModificationException {
-                return true;
+            public boolean hasNext() {
+                data.offer(currentNode);
+                boolean result = true;
+                if (this.data.isEmpty()) {
+                    result = false;
+                }
+                return result;
             }
 
             @Override
             public E next() throws NoSuchElementException {
                 if (!hasNext()) {
-                    throw new NoSuchElementException("End of List");
+                    throw new NoSuchElementException();
                 }
-                return null;
+                E result = currentNode.getValue();
+                if (!currentNode.leaves().isEmpty()) {
+                    for (Node<E> child : currentNode.leaves()) {
+                        data.offer(child);
+                    }
+                }
+                currentNode = data.poll();
+                return result;
             }
-
         };
         return it;
     }
