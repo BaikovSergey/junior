@@ -10,12 +10,22 @@ public class Tree<E extends Comparable<E>> implements Iterable<E>, SimpleTree<E>
     private Node<E> root;
 
     /**
+     * Queue of tree. Iterator offers each element of tree to queue,
+     * if element has branches,
+     * iterator puts them to queue.
+     */
+    private Queue<Node<E>> data = new LinkedList<>();
+
+    /**
      * Constructor
      * @param value value
      */
     public Tree(E value) {
         this.root = new Node<>(value);
+        data.offer(root);
     }
+
+
 
     @Override
     public boolean add(E parent, E child) {
@@ -59,14 +69,10 @@ public class Tree<E extends Comparable<E>> implements Iterable<E>, SimpleTree<E>
     public Iterator<E> iterator() {
         Iterator<E> it = new Iterator<E>() {
 
-            Queue<Node<E>> data = new LinkedList<>();
-            Node<E> currentNode = root;
-
             @Override
             public boolean hasNext() {
-                data.offer(currentNode);
                 boolean result = true;
-                if (this.data.isEmpty()) {
+                if (data.isEmpty()) {
                     result = false;
                 }
                 return result;
@@ -77,16 +83,20 @@ public class Tree<E extends Comparable<E>> implements Iterable<E>, SimpleTree<E>
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                E result = currentNode.getValue();
-                if (!currentNode.leaves().isEmpty()) {
-                    for (Node<E> child : currentNode.leaves()) {
-                        data.offer(child);
+                E result = null;
+                Node<E> head = data.poll();
+                if (head != null) {
+                    if (!head.leaves().isEmpty()) {
+                        for (Node<E> child : head.leaves()) {
+                            data.offer(child);
+                        }
                     }
+                    result = head.getValue();
                 }
-                currentNode = data.poll();
                 return result;
             }
         };
         return it;
     }
 }
+

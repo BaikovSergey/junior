@@ -35,6 +35,13 @@ public class TreeTest {
     }
 
     @Test
+    public void whenTreeHas1ThenHasNextIsTrue() {
+        Tree<Integer> tree = new Tree<>(1);
+        Iterator<Integer> it = tree.iterator();
+        assertThat(it.hasNext(), is(true));
+    }
+
+    @Test
     public void whenIterateThroughTreeThen123456() {
         Tree<Integer> tree = new Tree<>(1);
         tree.add(1, 2);
@@ -46,7 +53,5 @@ public class TreeTest {
         while (it.hasNext()) {
             System.out.println(it.next());
         }
-
     }
-
 }
