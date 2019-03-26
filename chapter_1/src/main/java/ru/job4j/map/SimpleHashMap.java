@@ -7,11 +7,15 @@ import java.util.NoSuchElementException;
 public class SimpleHashMap<K, V> implements Iterable<V> {
 
     /**
+     * Array
+     */
+    private Node[] container;
+
+    /**
      * Constructor
      */
     public SimpleHashMap() {
         this.container = new Node[16];
-        this.length = 16;
     }
 
     /**
@@ -19,25 +23,20 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
      */
     private int size = 0;
 
-    /**
-     * Length of array
-     */
-    private int length;
 
     /**
      *
      */
-    private final double loadFactor = 0.75d;
+    private final double LOAD_FACTOR = 0.75d;
 
     /**
      *
      */
-    private double threshold = this.length * this.loadFactor;
+    private double threshold() {
+        return this.container.length * this.LOAD_FACTOR;
+    }
 
-    /**
-     * Array
-     */
-    private Node[] container;
+
 
     /**
      * Method determinate in witch cell new element will be put
@@ -66,12 +65,11 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
      * @return true/false
      */
     public boolean insert(K key, V value) {
-        if (size > threshold) {
-            this.container = Arrays.copyOf(this.container, this.length * 2);
-            this.length = this.container.length;
+        if (size >= threshold()) {
+            this.container = Arrays.copyOf(this.container, this.container.length * 2);
         }
         boolean result = false;
-        int hash = indexFor(hash(key), this.length);
+        int hash = indexFor(hash(key), this.container.length);
         if (hash == 0 && container[0] == null) {
             container[0] = new Node(key, value);
             size++;
@@ -93,8 +91,8 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
      */
     public V get(K key) {
         V result = null;
-        int hash = indexFor(hash(key), this.length);
-        if (hash < this.length) {
+        int hash = indexFor(hash(key), this.container.length);
+        if (hash < this.container.length) {
             result = (V) this.container[hash];
         }
         return result;
@@ -107,24 +105,21 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
      */
     public boolean delete(K key) {
         boolean result = false;
-        int hash = indexFor(hash(key), this.length);
-        if (hash < this.length) {
+        int hash = indexFor(hash(key), this.container.length);
+        if (hash < this.container.length) {
             container[hash] = null;
             result = true;
         }
         return result;
     }
 
-    public int getLength() {
-        return length;
-    }
 
     public int getSize() {
         return size;
     }
 
-    public double getLoadFactor() {
-        return loadFactor;
+    public int getLength() {
+        return this.container.length;
     }
 
     @Override

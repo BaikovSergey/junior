@@ -35,7 +35,7 @@ public class SimpleHashMapTest {
         System.out.println(map.getSize());
         System.out.println(map.getLength());
         int key = 0;
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 13; i++) {
             map.insert(key, i);
             key++;
         }
