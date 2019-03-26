@@ -54,4 +54,25 @@ public class TreeTest {
             System.out.println(it.next());
         }
     }
-}
+
+    @Test
+    public void whenNodesHaveOnly2BranchesThenTreeIsBinary() {
+        Tree<Integer> tree = new Tree<>(1);
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(2, 4);
+        tree.add(2, 5);
+        tree.add(3, 6);
+        assertThat(tree.isBinary(tree), is(true));
+        }
+
+        @Test
+    public void whenNodeHave3BranchesThenTreeIsNotBinary() {
+        Tree<Integer> tree = new Tree<>(1);
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(1, 4);
+        assertThat(tree.isBinary(tree), is(false));
+    }
+
+    }

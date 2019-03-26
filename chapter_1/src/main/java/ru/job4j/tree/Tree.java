@@ -65,6 +65,20 @@ public class Tree<E extends Comparable<E>> implements Iterable<E>, SimpleTree<E>
         return result;
     }
 
+    public boolean isBinary(Tree<E> tree) {
+        boolean result = true;
+        Iterator<E> it = tree.iterator();
+        Node<E> node;
+        while (it.hasNext()) {
+            node = data.poll();
+            if (node.leaves().size() > 2) {
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
+
     @Override
     public Iterator<E> iterator() {
         Iterator<E> it = new Iterator<E>() {
