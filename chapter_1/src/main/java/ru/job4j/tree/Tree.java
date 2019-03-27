@@ -60,7 +60,8 @@ public class Tree<E extends Comparable<E>> implements Iterable<E>, SimpleTree<E>
         Iterator<E> it = tree.iterator();
         Node<E> node;
         while (it.hasNext()) {
-            node = data.poll();
+
+            node = new Node<>(null);
             if (node.leaves().size() > 2) {
                 result = false;
                 break;
