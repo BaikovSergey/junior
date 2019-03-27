@@ -10,22 +10,12 @@ public class Tree<E extends Comparable<E>> implements Iterable<E>, SimpleTree<E>
     private Node<E> root;
 
     /**
-     * Queue of tree. Iterator offers each element of tree to queue,
-     * if element has branches,
-     * iterator puts them to queue.
-     */
-    private Queue<Node<E>> data = new LinkedList<>();
-
-    /**
      * Constructor
      * @param value value
      */
     public Tree(E value) {
         this.root = new Node<>(value);
-        data.offer(root);
     }
-
-
 
     @Override
     public boolean add(E parent, E child) {
@@ -81,6 +71,10 @@ public class Tree<E extends Comparable<E>> implements Iterable<E>, SimpleTree<E>
 
     @Override
     public Iterator<E> iterator() {
+
+        Queue<Node<E>> data = new LinkedList<>();
+        data.offer(root);
+
         Iterator<E> it = new Iterator<E>() {
 
             @Override
