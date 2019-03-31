@@ -2,7 +2,7 @@ package ru.job4j.tree;
 
 import java.util.*;
 
-public class Tree<E extends Comparable<E>> implements Iterable<E>, SimpleTree<E> {
+public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
 
     /**
      * Root of the tree
