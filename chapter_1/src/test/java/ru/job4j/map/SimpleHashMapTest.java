@@ -43,4 +43,16 @@ public class SimpleHashMapTest {
         System.out.println(map.getLength());
         assertThat(map.getLength(), is(32));
     }
+
+    @Test
+    public void whenMapWasGrownThenElementsStillAccessed() {
+        int key = 0;
+        for (int i = 0; i < 20; i++) {
+            map.insert(key, i);
+            key++;
+        }
+        assertThat(map.get(2), is(2));
+        assertThat(map.get(5), is(5));
+        assertThat(map.get(19), is(19));
+    }
 }

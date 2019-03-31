@@ -1,8 +1,6 @@
 package ru.job4j.map;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class SimpleHashMap<K, V> implements Iterable<V> {
 
@@ -66,22 +64,38 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
      */
     public boolean insert(K key, V value) {
         if (size >= threshold()) {
-            this.container = Arrays.copyOf(this.container, this.container.length * 2);
+            grow();
+            reHash();
         }
         boolean result = false;
         int hash = indexFor(hash(key), this.container.length);
         if (hash == 0 && container[0] == null) {
-            container[0] = new Node(key, value);
+            container[0] = new Node<>(key, value);
             size++;
             result = true;
         } else {
             if (container[hash] == null) {
-                container[hash] = new Node(key, value);
+                container[hash] = new Node<>(key, value);
                 size++;
                 result = true;
             }
         }
         return result;
+    }
+
+    private void grow() {
+        this.container = Arrays.copyOf(this.container, this.container.length * 2);
+    }
+
+    private void reHash() {
+        List<Node<K, V>> list = new ArrayList<>();
+        for (int i = 0; i < (getLength() / 2) * LOAD_FACTOR; i++) {
+            list.add(this.container[i]);
+            this.container[i] = null;
+        }
+        for (Node<K, V> node : list) {
+            insert(node.key, node.value);
+        }
     }
 
     /**
@@ -91,9 +105,9 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
      */
     public V get(K key) {
         V result = null;
-        int hash = indexFor(hash(key), this.container.length);
+        int hash = indexFor(hash(key), getLength());
         if (hash < this.container.length) {
-            result = (V) this.container[hash];
+            result = (V) this.container[hash].value;
         }
         return result;
     }
