@@ -69,13 +69,13 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
         }
         boolean result = false;
         int hash = indexFor(hash(key), this.container.length);
-        if (hash == 0 && container[0] == null) {
-            container[0] = new Node<>(key, value);
+        if (hash == 0 && this.container[0] == null) {
+            this.container[0] = new Node<>(key, value);
             size++;
             result = true;
         } else {
-            if (container[hash] == null) {
-                container[hash] = new Node<>(key, value);
+            if (this.container[hash] == null) {
+                this.container[hash] = new Node<>(key, value);
                 size++;
                 result = true;
             }
@@ -93,6 +93,7 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
             list.add(this.container[i]);
             this.container[i] = null;
         }
+        this.size = 0;
         for (Node<K, V> node : list) {
             insert(node.key, node.value);
         }
