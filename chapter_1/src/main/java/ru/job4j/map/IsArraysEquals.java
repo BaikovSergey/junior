@@ -8,12 +8,15 @@ public class IsArraysEquals <V>{
 
     public boolean isEquals(char[] first, char[] second) {
         boolean result = false;
-        Map<Character, V> map = new HashMap<>();
-        for (int i = 0; i < first.length; i++) {
-            map.put(first[i], null);
-            map.put(second[i], null);
+        Map<Character, V> firstMap = new HashMap<>();
+        Map<Character, V> secondMap = new HashMap<>();
+        for (char aFirst : first) {
+            firstMap.put(aFirst, null);
         }
-        if(map.size() == first.length) {
+        for (char aSecond : second) {
+            secondMap.put(aSecond, null);
+        }
+        if(firstMap.equals(secondMap)) {
             result = true;
         }
         return result;

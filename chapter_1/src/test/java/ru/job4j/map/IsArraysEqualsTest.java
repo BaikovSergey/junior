@@ -10,16 +10,16 @@ public class IsArraysEqualsTest {
     @Test
     public void whenArraysIsEqualThenTrue() {
         IsArraysEquals test = new IsArraysEquals();
-        char[] first = {'q', 'w', 'e', 'r', 't', 'y'};
-        char[] second = {'y', 't', 'r', 'e', 'w', 'q'};
+        char[] first = {'m', 'a', 'a'};
+        char[] second = {'a', 'm', 'a'};
         assertThat(test.isEquals(first, second), is(true));
     }
 
     @Test
     public void whenArraysIsNotEqualThenFalse() {
         IsArraysEquals test = new IsArraysEquals();
-        char[] first = {'q', 'w', 'e', 'r', 't', 'y'};
-        char[] second = {'a', 't', 'r', 'e', 'w', 'q'};
+        char[] first = {'m', 'a', 'a'};
+        char[] second = {'a', 'm', 'q'};
         assertThat(test.isEquals(first, second), is(false));
     }
 }
