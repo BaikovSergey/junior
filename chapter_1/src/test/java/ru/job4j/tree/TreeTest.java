@@ -76,7 +76,7 @@ public class TreeTest {
     }
 
     @Test
-    public void test() {
+    public void iteratorTest() {
         Tree<Integer> tree = new Tree<>(5);
         tree.add(5, 1);
         Iterator<Integer> it1 = tree.iterator();
