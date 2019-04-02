@@ -65,7 +65,6 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
     public boolean insert(K key, V value) {
         if (size >= threshold()) {
             grow();
-            reHash();
         }
         boolean result = false;
         int hash = indexFor(hash(key), this.container.length);
@@ -85,9 +84,6 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
 
     private void grow() {
         this.container = Arrays.copyOf(this.container, this.container.length * 2);
-    }
-
-    private void reHash() {
         List<Node<K, V>> list = new ArrayList<>();
         for (int i = 0; i < (getLength() / 2) * LOAD_FACTOR; i++) {
             list.add(this.container[i]);
@@ -107,7 +103,9 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
     public V get(K key) {
         V result = null;
         int hash = indexFor(hash(key), getLength());
-        if (hash < this.container.length) {
+        if (hash < this.container.length
+                && this.container[hash].key.equals(key)
+                && this.container[hash].value != null) {
             result = (V) this.container[hash].value;
         }
         return result;
@@ -121,16 +119,12 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
     public boolean delete(K key) {
         boolean result = false;
         int hash = indexFor(hash(key), this.container.length);
-        if (hash < this.container.length) {
+        if (hash < this.container.length
+                && this.container[hash].key.equals(key)) {
             container[hash] = null;
             result = true;
         }
         return result;
-    }
-
-
-    public int getSize() {
-        return size;
     }
 
     public int getLength() {
@@ -145,7 +139,15 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
 
             @Override
             public boolean hasNext() {
-                return index < SimpleHashMap.this.size;
+                boolean result = false;
+                for (int i = index; i < SimpleHashMap.this.size; i++) {
+                    if (SimpleHashMap.this.container[i] != null) {
+                        result = true;
+                        index = i;
+                        break;
+                    }
+                }
+                return result;
             }
 
             @Override
@@ -153,7 +155,7 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
                 if (!hasNext()) {
                     throw new NoSuchElementException("End of List");
                 }
-                return (V) container[index++];
+                return (V) SimpleHashMap.this.container[index++].value;
             }
         };
         return it;
