@@ -1,65 +1,42 @@
 package ru.job4j.list;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Analize {
 
     public Info diff(List<User> previous, List<User> current) {
         Info result = new Info(0, 0, 0);
-        List<User> first = previous;
-        List<User> second = current;
-        result.changed = changed(first, second);
-        result.added = added(first, second) - changed(first, second);
-        result.deleted = deleted(first, second) - changed(first, second);
-
-        return result;
-    }
-
-    private int added(List<User> previous, List<User> current) {
-        int result = 0;
+        List<User> list = new ArrayList<>(previous);
+        Map<Integer, User> map = new HashMap<>();
         for (User user : current) {
-            if (!previous.contains(user)) {
-                result ++;
-            }
+            map.put(user.id, user);
         }
-        return result;
-    }
-
-    private int deleted(List<User> previous, List<User> current) {
-        int result = 0;
-        for (User user : previous) {
-            if (!current.contains(user)) {
-                result ++;
-            }
-        }
-        return result;
-    }
-
-    private int changed(List<User> previous, List<User> current) {
-        int result = 0;
-        User temp = null;
-        for (User user : previous) {
-            temp = findById(user.getId(), current);
-            if (temp != null ) {
-                if (!user.getName().equals(temp.getName())) {
-                    result++;
-                }
-            }
-        }
-        return result;
-    }
-
-    private User findById(int id, List<User> list) {
-        User result = null;
         for (User user : list) {
-            if (user.getId() == id) {
-                result = user;
-                break;
+            User temp = findById(user.id, map);
+            if (temp == null) {
+                result.deleted++;
+
+            } else {
+                if (!temp.equals(user)) {
+                    result.changed++;
+                    map.remove(temp.id, temp);
+                }
+                map.remove(temp.id, temp);
             }
+        }
+        result.added = map.size();
+        return result;
+    }
+
+    private User findById(int id, Map<Integer, User> map) {
+        User result = null;
+        if (map.containsKey(id)) {
+            result = map.get(id);
         }
         return result;
     }
+
+
 
     public static class User {
         int id;

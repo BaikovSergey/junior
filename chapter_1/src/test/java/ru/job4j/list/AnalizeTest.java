@@ -42,8 +42,8 @@ public class AnalizeTest {
     public void whenChangeOneUserThenChanged1() {
         Analize test = new Analize();
         Analize.User bob = new Analize.User(1, "Bob");
-        Analize.User tom = new Analize.User(1, "Tom");
-        Analize.User sam = new Analize.User(1, "Sam");
+        Analize.User tom = new Analize.User(2, "Tom");
+        Analize.User sam = new Analize.User(2, "Sam");
         List<Analize.User> previous = new ArrayList<>();
         previous.add(bob);
         previous.add(tom);
