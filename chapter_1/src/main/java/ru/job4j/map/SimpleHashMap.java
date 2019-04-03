@@ -140,7 +140,7 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
             @Override
             public boolean hasNext() {
                 boolean result = false;
-                for (int i = index; i < SimpleHashMap.this.size; i++) {
+                for (int i = index; i < SimpleHashMap.this.container.length; i++) {
                     if (SimpleHashMap.this.container[i] != null) {
                         result = true;
                         index = i;
