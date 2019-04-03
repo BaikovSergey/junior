@@ -16,6 +16,14 @@ public class IsArraysEqualsTest {
     }
 
     @Test
+    public void whenArraysIsEqualThenFalse() {
+        IsArraysEquals test = new IsArraysEquals();
+        char[] first = {'m', 'a', 'm'};
+        char[] second = {'m', 'a', 'a'};
+        assertThat(test.isEquals(first, second), is(false));
+    }
+
+    @Test
     public void whenArraysIsNotEqualThenFalse() {
         IsArraysEquals test = new IsArraysEquals();
         char[] first = {'m', 'a', 'a'};
