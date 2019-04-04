@@ -1,4 +1,4 @@
-package inputoutput;
+package ru.job4j.inputoutput;
 
 import java.io.*;
 import java.util.StringJoiner;
