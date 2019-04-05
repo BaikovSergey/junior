@@ -1,21 +1,47 @@
 package ru.job4j.inputoutput;
 
 import java.io.*;
-import java.util.StringJoiner;
+import java.util.*;
 
 public class Analizy {
-    public void unavailable(String source, String target) {
-        try (BufferedReader read = new BufferedReader(new FileReader(source))) {
-            read.lines().forEach(line -> {
-                String[] code = line.split(" ", 1);
-                String[] timeInterval = new String[2];
-                if (code[0].contains("400") || code[0].contains("500")) {
 
-                }
-            });
+    private List<String> serverlog = new ArrayList<>();
+
+    public void unavailable(String source, String target) {
+        this.serverlog.clear();
+        try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
+            reader.lines().forEach(line -> this.serverlog.add(line));
         } catch (Exception e) {
             e.printStackTrace();
         }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(target))) {
+            for (String line : timeParser()) {
+                writer.write(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private List<String> timeParser() {
+        List<String> result = new ArrayList<>();
+        String[] temp = {"", ";", ""};
+        String[] time;
+        boolean isUnavailable = false;
+        for (String line : this.serverlog) {
+            if (line.contains("400") || line.contains("500") & !isUnavailable) {
+                time = line.split(" ");
+                temp[0] = time[1];
+                isUnavailable = true;
+            }
+            if (line.contains("200") || line.contains("300") & isUnavailable) {
+                time = line.split(" ");
+                temp[0] = time[2];
+                result.add(temp[0]+temp[1]+temp[2]);
+                isUnavailable = false;
+            }
+        }
+        return result;
     }
 
     public static void main(String[] args) {
