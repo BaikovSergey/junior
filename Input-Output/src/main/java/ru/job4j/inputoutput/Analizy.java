@@ -2,6 +2,7 @@ package ru.job4j.inputoutput;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class Analizy {
 
