@@ -21,15 +21,15 @@ public class ConfigTest {
                 "hibernate.dialect=hibernate.dialect"
         );
         Config config = new Config(path.getAbsolutePath()).load();
-        assertThat(config.value("hibernate.dialect"), is ("hibernate.dialect"));
+        assertThat(config.value("hibernate.dialect"), is("hibernate.dialect"));
 
     }
 
     private File data(String file, String... properties) throws IOException {
         File path = new File(
                 System.getProperty("java.io.tmpdir")
-                +System.clearProperty("file.separator")
-                +file
+                + System.clearProperty("file.separator")
+                + file
         );
         if (!path.createNewFile()) {
             throw new IllegalStateException(String.format("File could not created %s", path.getAbsoluteFile()));
