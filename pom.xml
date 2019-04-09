@@ -15,10 +15,6 @@
 
     <modules>
         <module>chapter_1</module>
-        <module>chapter_2</module>
-        <module>chapter_3</module>
-		<module>chapter_4</module>
-		<module>chapter_5</module>
         <module>Input-Output</module>
     </modules>
 <dependencies>

@@ -17,7 +17,7 @@ public class AnalizeTest {
         previous.add(new Analize.User(1, "Bob"));
         List<Analize.User> current = new ArrayList<>();
         current.add(new Analize.User(1, "Bob"));
-        current.add(new Analize.User(2,"Tom"));
+        current.add(new Analize.User(2, "Tom"));
         Analize.Info result = test.diff(previous, current);
         assertThat(result.getAdded(), is(1));
         assertThat(result.getChanged(), is(0));
@@ -29,7 +29,7 @@ public class AnalizeTest {
         Analize test = new Analize();
         List<Analize.User> previous = new ArrayList<>();
         previous.add(new Analize.User(1, "Bob"));
-        previous.add(new Analize.User(2,"Tom"));
+        previous.add(new Analize.User(2, "Tom"));
         List<Analize.User> current = new ArrayList<>();
         current.add(new Analize.User(1, "Bob"));
         Analize.Info result = test.diff(previous, current);

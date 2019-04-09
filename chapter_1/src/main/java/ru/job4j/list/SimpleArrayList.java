@@ -21,8 +21,9 @@ public class SimpleArrayList<E> {
      */
     public E delete() {
         Node<E> result = this.first;
-        if (result == null)
+        if (result == null) {
             throw new NoSuchElementException();
+        }
         this.first = first.next;
         this.size--;
         return result.date;

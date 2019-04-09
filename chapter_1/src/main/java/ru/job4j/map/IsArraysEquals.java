@@ -24,7 +24,7 @@ public class IsArraysEquals {
                 secondMap.put(c, secondMap.get(c) + 1);
             }
         }
-        if(firstMap.equals(secondMap)) {
+        if (firstMap.equals(secondMap)) {
             result = true;
         }
         return result;

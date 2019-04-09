@@ -25,13 +25,13 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
     /**
      *
      */
-    private final double LOAD_FACTOR = 0.75d;
+    private final double loadfactor = 0.75d;
 
     /**
      *
      */
     private double threshold() {
-        return this.container.length * this.LOAD_FACTOR;
+        return this.container.length * this.loadfactor;
     }
 
 
@@ -41,8 +41,7 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
      * @param h object hashCode
      * @return index in array
      */
-    private int indexFor(int h, int length)
-    {
+    private int indexFor(int h, int length) {
         return h & (length - 1);
     }
 
@@ -52,8 +51,11 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
      * @return hashCode
      */
     private int hash(Object key) {
-        int h;
-        return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
+        int result = 0;
+        if (key != null) {
+            result = (key.hashCode()) ^ (result >>> 16);
+        }
+        return result;
     }
 
     /**
@@ -85,7 +87,7 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
     private void grow() {
         this.container = Arrays.copyOf(this.container, this.container.length * 2);
         List<Node<K, V>> list = new ArrayList<>();
-        for (int i = 0; i < (getLength() / 2) * LOAD_FACTOR; i++) {
+        for (int i = 0; i < (getLength() / 2) * loadfactor; i++) {
             list.add(this.container[i]);
             this.container[i] = null;
         }
@@ -103,10 +105,12 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
     public V get(K key) {
         V result = null;
         int hash = indexFor(hash(key), getLength());
-        if (hash < this.container.length
-                && this.container[hash].key.equals(key)
-                && this.container[hash].value != null) {
-            result = (V) this.container[hash].value;
+        if (this.container[hash] != null) {
+            if (hash < this.container.length
+                    && this.container[hash].value != null
+                    && this.container[hash].key.equals(key)) {
+                result = (V) this.container[hash].value;
+            }
         }
         return result;
     }
@@ -133,7 +137,7 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
 
     @Override
     public Iterator<V> iterator() {
-        Iterator<V> it = new Iterator<V>() {
+        Iterator<V> it = new Iterator<>() {
 
             private int index = 0;
 

@@ -87,7 +87,7 @@ public class TreeTest {
         int[] second = new int[2];
         second[0] = it2.next();
         second[1] = it2.next();
-        assertThat(first, is (second));
+        assertThat(first, is(second));
     }
 
 }

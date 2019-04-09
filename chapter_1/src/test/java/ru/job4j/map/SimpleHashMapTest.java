@@ -27,7 +27,7 @@ public class SimpleHashMapTest {
 
     @Test
     public void whenDeleteElementFromMapThenNoSuchElement() {
-        map.insert(1,1);
+        map.insert(1, 1);
         map.delete(1);
         assertThat(map.get(1), is(IsNull.nullValue()));
     }
@@ -35,7 +35,7 @@ public class SimpleHashMapTest {
     @Test
     public void getElementAfterGrow() {
         int key = 0;
-        for (int i = 0; i < 13; i++) {
+        for (int i = 0; i < 15; i++) {
             map.insert(key, i);
             key++;
         }
