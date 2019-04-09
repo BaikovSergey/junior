@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/BaikovSergey/junior.svg?branch=master)](https://travis-ci.org/BaikovSergey/junior)
+
 # junior
 This repository contains junior tasks.
 Chapter_1 - Collections pro
