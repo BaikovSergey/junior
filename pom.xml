@@ -14,7 +14,7 @@
 	</properties>
 
     <modules>
-        <module>Collections_Pro</module>
+        <module>collections_pro</module>
         <module>Input-Output</module>
     </modules>
 <dependencies>
