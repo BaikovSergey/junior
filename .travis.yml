@@ -9,13 +9,14 @@ sudo: false
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 
-# Отправлять уведомление на почт rayleonard9@gmail.com если сборка упала
+# Отправлять уведомление на почту rayleonard9@gmail.com если сборка упала
 notifications:
   email:
     recipients:
       -rayleonard9@gmail.com
     on_success: never # default: change
     on_failure: always # default: always
+
 env:
   global:
-    - CODECOV_TOKEN="40a18c38-d6f0-4526-93ea-3122020b25ac"
+  - CODECOV_TOKEN="40a18c38-d6f0-4526-93ea-3122020b25ac"
