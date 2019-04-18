@@ -1,5 +1,7 @@
 package ru.job4j.inputoutput.filefinder;
 
+import java.util.StringJoiner;
+
 public class FindPars {
 
     private int findKey(String[] array, String key) {
@@ -15,51 +17,65 @@ public class FindPars {
         return result;
     }
 
-    protected String directory(String[] dir) {
+    protected String directory(String[] input) {
+        StringBuilder result = new StringBuilder();
+        int beginning = findKey(input, "-d");
+        int end = findKey(input, "-n");
+        if (input != null) {
+            result.append(input[beginning]);
+            for (int i = beginning + 1; i < end - 1; i++) {
+                result.append(" ").append(input[i]);
+            }
+        }
+        return result.toString();
+    }
+
+    protected String fileName(String[] input) {
+        StringBuilder result = new StringBuilder();
+        int beginning = findKey(input, "-n");
+        int end = findKey(input, "-o");
+        if (input != null) {
+            result.append(input[beginning]);
+            for (int i = beginning + 1; i < end - 1; i++) {
+                result.append(" ").append(input[i]);
+            }
+        }
+        return result.toString();
+    }
+
+    protected String mask(String[] input) {
         String result = null;
-        if (dir != null) {
-            result = dir[findKey(dir, "-d")];
+        if (input != null) {
+            result = input[findKey(input, "-m")];
         }
         return result;
     }
 
-    protected String fileName(String[] out) {
+    protected String fullName(String[] input) {
         String result = null;
-        if (out != null) {
-            result = out[findKey(out, "-n")];
+        if (input != null) {
+            result = input[findKey(input, "-f")];
         }
         return result;
     }
 
-    protected String mask(String[] out) {
+    protected String regularExp(String[] input) {
         String result = null;
-        if (out != null) {
-            result = out[findKey(out, "-m")];
+        if (input != null) {
+            result = input[findKey(input, "-r")];
         }
         return result;
     }
 
-    protected String fullName(String[] out) {
-        String result = null;
-        if (out != null) {
-            result = out[findKey(out, "-f")];
+    protected String output(String[] input) {
+        StringBuilder result = new StringBuilder();
+        int beginning = findKey(input, "-o");
+        if (input != null) {
+            result.append(input[beginning]);
+            for (int i = beginning + 1; i < input.length; i++) {
+                result.append(" ").append(input[i]);
+            }
         }
-        return result;
-    }
-
-    protected String regularExp(String[] out) {
-        String result = null;
-        if (out != null) {
-            result = out[findKey(out, "-r")];
-        }
-        return result;
-    }
-
-    protected String output(String[] out) {
-        String result = null;
-        if (out != null) {
-            result = out[findKey(out, "-o")];
-        }
-        return result;
+        return result.toString();
     }
 }

@@ -40,8 +40,8 @@ public class AnalizyTest {
     private File data(String file, String... properties) throws IOException {
         File path = new File(
                 System.getProperty("java.io.tmpdir")
-                        +System.clearProperty("file.separator")
-                        +file
+                        + System.clearProperty("file.separator")
+                        + file
         );
         if (!path.createNewFile()) {
             throw new IllegalStateException(String.format("File could not created %s", path.getAbsoluteFile()));
