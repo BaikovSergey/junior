@@ -49,10 +49,8 @@ public class Find {
             if (inputValidation(input)) {
                 FindPars pars = new FindPars();
                 String[] args = input.split(" ");
-                for (String s : args) {
-                    System.out.println(s);
-                }
-                findFile(pars.directory(args), pars.fileName(args), pars.output(args));
+                findFile(pars.directory(args), pars.fileName(args), pars.searchKey(args), pars.output(args));
+                System.out.print("Please enter search parameters: ");
             } else {
                 System.out.println("Неверный ввод");
                 System.out.print("Please enter search parameters: ");
@@ -64,13 +62,10 @@ public class Find {
     /**
      * Method finds file.
      */
-    private void findFile(String directory, String fileName, String output) {
-        System.out.println(directory);
-        System.out.println(fileName);
-        System.out.println(output);
+    private void findFile(String directory, String fileName, String key, String output) {
         final String property = System.getProperty("java.io.tmpdir");
         final File file = new File(property + File.separator + output);
-        List<String> result = search(directory, fileName);
+        List<String> result = search(directory, fileName, key);
         try (FileOutputStream fos = new FileOutputStream(file);
              BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos))) {
                 if (result != null) {
@@ -87,12 +82,12 @@ public class Find {
     }
 
     /**
-     * Method searches for file and put matches to List
+     * Method searches for file and put matches to List.
      * @param directory
      * @param toFind
      * @return
      */
-    private List<String> search(String directory, String toFind) {
+    private List<String> search(String directory, String toFind, String key) {
         List<String> result = new ArrayList<>();
         File folder = new File(directory);
         Queue<File> queue = new LinkedList<>();
@@ -103,7 +98,7 @@ public class Find {
                 for (File file : files) {
                     if (file.isDirectory()) {
                         queue.offer(file);
-                    } else if (file.getName().contains(toFind)) {
+                    } else if (searchType(file, toFind, key)) {
                         result.add(file.getName());
                     }
                 }
@@ -112,9 +107,25 @@ public class Find {
         return result;
     }
 
+    /**
+     * Method determines search mechanism.
+     * @param file
+     * @param toFind
+     * @param key
+     * @return
+     */
+    private boolean searchType(File file, String toFind, String key) {
+        boolean result = false;
+        if (key.equals("-m")) {
+            result = file.getName().contains(toFind.substring(1));
+        } else if (key.equals("-f")) {
+            result = file.getName().equals(toFind);
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
-        Find test = new Find();
-        test.menu();
+        new Find().menu();
     }
 
 }

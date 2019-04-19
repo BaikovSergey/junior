@@ -1,7 +1,5 @@
 package ru.job4j.inputoutput.filefinder;
 
-import java.util.StringJoiner;
-
 public class FindPars {
 
     private int findKey(String[] array, String key) {
@@ -10,6 +8,19 @@ public class FindPars {
             for (int i = 0; i < array.length; i++) {
                 if (array[i].contains(key)) {
                     result = i + 1;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    private boolean isContains(String[] array, String key) {
+        boolean result = false;
+        if (array != null) {
+            for (String s : array) {
+                if (s.equals(key)) {
+                    result = true;
                     break;
                 }
             }
@@ -33,7 +44,7 @@ public class FindPars {
     protected String fileName(String[] input) {
         StringBuilder result = new StringBuilder();
         int beginning = findKey(input, "-n");
-        int end = findKey(input, "-o");
+        int end = findKey(input, "-");
         if (input != null) {
             result.append(input[beginning]);
             for (int i = beginning + 1; i < end - 1; i++) {
@@ -43,26 +54,14 @@ public class FindPars {
         return result.toString();
     }
 
-    protected String mask(String[] input) {
+    protected String searchKey(String[] input) {
         String result = null;
-        if (input != null) {
-            result = input[findKey(input, "-m")];
-        }
-        return result;
-    }
-
-    protected String fullName(String[] input) {
-        String result = null;
-        if (input != null) {
-            result = input[findKey(input, "-f")];
-        }
-        return result;
-    }
-
-    protected String regularExp(String[] input) {
-        String result = null;
-        if (input != null) {
-            result = input[findKey(input, "-r")];
+        if (isContains(input, "-m")) {
+            result = "-m";
+        } else if (isContains(input, "-f")) {
+            result = "-f";
+        } else if (isContains(input, "-r")) {
+            result = "-r";
         }
         return result;
     }
