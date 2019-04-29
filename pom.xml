@@ -47,7 +47,6 @@
         <scope>test</scope>
     </dependency>
 
-
     <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
     <dependency>
         <groupId>com.google.guava</groupId>
@@ -55,7 +54,7 @@
         <version>27.1-jre</version>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
+<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
 <dependency>
     <groupId>org.openjfx</groupId>
     <artifactId>javafx-controls</artifactId>

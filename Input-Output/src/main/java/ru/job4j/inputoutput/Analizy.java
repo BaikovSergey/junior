@@ -38,7 +38,7 @@ public class Analizy {
             if (line.contains("200") || line.contains("300") & isUnavailable) {
                 time = line.split(" ");
                 temp[0] = time[2];
-                result.add(temp[0]+temp[1]+temp[2]);
+                result.add(temp[0] + temp[1] + temp[2]);
                 isUnavailable = false;
             }
         }
