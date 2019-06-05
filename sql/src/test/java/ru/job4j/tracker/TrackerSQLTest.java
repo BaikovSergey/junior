@@ -11,5 +11,4 @@ public class TrackerSQLTest {
         TrackerSQL sql = new TrackerSQL();
         assertThat(sql.init(), is(true));
     }
-
 }
