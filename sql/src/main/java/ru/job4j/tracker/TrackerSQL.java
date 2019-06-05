@@ -2,6 +2,8 @@ package ru.job4j.tracker;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class TrackerSQL implements ITracker, AutoCloseable {
@@ -30,27 +32,34 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     }
 
     @Override
-    public void replace(String id, Item item) {
-
+    public boolean replace(String id, Item item) {
+        return false;
     }
 
     @Override
-    public void delete(String id) {
-
+    public boolean delete(String id) {
+        return false;
     }
 
     @Override
-    public Item[] findAll() {
-        return new Item[0];
+    public List<Item> findAll() {
+        List<Item> result = new ArrayList<>();
+        return result;
     }
 
     @Override
-    public Item[] findByName(String key) {
-        return new Item[0];
+    public List<Item> findByName(String key) {
+        List<Item> result = new ArrayList<>();
+        return result;
     }
 
     @Override
     public Item findById(String id) {
         return null;
+    }
+
+    @Override
+    public void close() throws Exception {
+
     }
 }
