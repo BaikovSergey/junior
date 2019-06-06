@@ -31,11 +31,17 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         init();
         try (Statement stmt = connection.createStatement()) {
             String SQL = "INSERT INTO item(item_id, item_name, item_desc) VALUES ("
+                    + "'"
                     + tracker.add(item).getId()
+                    + "'"
                     + ", "
+                    + "'"
                     + item.getName()
+                    + "'"
                     + ", "
+                    + "'"
                     + item.getDesc()
+                    + "'"
                     + ");";
             stmt.executeUpdate(SQL);
         } catch (SQLException e) {

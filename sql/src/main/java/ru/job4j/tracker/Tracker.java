@@ -31,7 +31,7 @@ public class Tracker implements ITracker {
      * @return Уникальный ключ.
      */
     private String generateId() {
-        return  String.valueOf((Math.random() * 1000));
+        return  String.valueOf((int) (Math.random() * 100));
     }
 
     /**
