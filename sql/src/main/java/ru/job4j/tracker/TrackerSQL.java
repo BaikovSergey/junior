@@ -1,7 +1,6 @@
 package ru.job4j.tracker;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -28,7 +27,21 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
     @Override
     public Item add(Item item) {
-        return null;
+        Tracker tracker = new Tracker();
+        init();
+        try (Statement stmt = connection.createStatement()) {
+            String SQL = "INSERT INTO item(item_id, item_name, item_desc) VALUES ("
+                    + tracker.add(item).getId()
+                    + ", "
+                    + item.getName()
+                    + ", "
+                    + item.getDesc()
+                    + ");";
+            stmt.executeUpdate(SQL);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return item;
     }
 
     @Override
@@ -61,5 +74,10 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public void close() throws Exception {
 
+    }
+
+    public static void main(String[] args) {
+        TrackerSQL trackerSQL = new TrackerSQL();
+        trackerSQL.add(new Item("testName", "testDesc"));
     }
 }
