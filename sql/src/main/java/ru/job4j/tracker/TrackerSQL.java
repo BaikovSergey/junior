@@ -27,23 +27,16 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
     @Override
     public Item add(Item item) {
-        Tracker tracker = new Tracker();
+        String sql_insert = "INSERT INTO item(item_id, item_name, item_desc) VALUES (?,?,?);";
+        int id = Integer.parseInt(item.getId());
+        String name = item.getName();
+        String desc = item.getDesc();
         init();
-        try (Statement stmt = connection.createStatement()) {
-            String SQL = "INSERT INTO item(item_id, item_name, item_desc) VALUES ("
-                    + "'"
-                    + tracker.add(item).getId()
-                    + "'"
-                    + ", "
-                    + "'"
-                    + item.getName()
-                    + "'"
-                    + ", "
-                    + "'"
-                    + item.getDesc()
-                    + "'"
-                    + ");";
-            stmt.executeUpdate(SQL);
+        try (PreparedStatement pstmt = this.connection.prepareStatement(sql_insert)) {
+            pstmt.setInt(1, id);
+            pstmt.setString(2, name);
+            pstmt.setString(3, desc);
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -84,6 +77,6 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
     public static void main(String[] args) {
         TrackerSQL trackerSQL = new TrackerSQL();
-        trackerSQL.add(new Item("testName", "testDesc"));
+        trackerSQL.add(new Item("12","testName2", "testDesc2"));
     }
 }
