@@ -9,6 +9,10 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
     private Connection connection;
 
+    /**
+     * Method establishes connection to DB.
+     * @return true/false
+     */
     public boolean init() {
         try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("app.properties")) {
             Properties config = new Properties();
@@ -25,6 +29,11 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         return this.connection != null;
     }
 
+    /**
+     * Method add new item to DB.
+     * @param item new Item object.
+     * @return new added item.
+     */
     @Override
     public Item add(Item item) {
         String sql_insert = "INSERT INTO item(item_id, item_name, item_desc) VALUES (?,?,?);";
@@ -43,31 +52,120 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         return item;
     }
 
+    /**
+     * Method replaces pointed item with new item.
+     * @param id id of the item to be replaced.
+     * @param item new item.
+     * @return true/false.
+     */
     @Override
     public boolean replace(String id, Item item) {
-        return false;
+        boolean result = false;
+        String sql_insert = "UPDATE item SET item_id = ?, item_name = ?, item_desc = ? WHERE item_id = ?;";
+        int item_id = Integer.parseInt(item.getId());
+        String item_name = item.getName();
+        String item_desc = item.getDesc();
+        init();
+        try (PreparedStatement pstmt = this.connection.prepareStatement(sql_insert)) {
+            pstmt.setInt(1, item_id);
+            pstmt.setString(2, item_name);
+            pstmt.setString(3, item_desc);
+            pstmt.setInt(4, Integer.parseInt(id));
+            int sql_result = pstmt.executeUpdate();
+            if (sql_result != 0) {
+                result = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
+    /**
+     * Method delete pointed item
+     * @param id id of the item to be removed
+     * @return true/false.
+     */
     @Override
     public boolean delete(String id) {
-        return false;
+        boolean result = false;
+        String sql_insert = "DELETE FROM item WHERE item_id = ?;";
+        int item_id = Integer.parseInt(id);
+        init();
+        try (PreparedStatement pstmt = this.connection.prepareStatement(sql_insert)) {
+            pstmt.setInt(1, item_id);
+            int sql_result = pstmt.executeUpdate();
+            if (sql_result != 0) {
+                result = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
+    /**
+     * Method finds all items.
+     * @return List of items.
+     */
     @Override
     public List<Item> findAll() {
         List<Item> result = new ArrayList<>();
+        String sql_insert = "SELECT * FROM item;";
+        init();
+        try (Statement statement = this.connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(sql_insert)) {
+            while (resultSet.next()) {
+                result.add(createNewItem(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return result;
     }
 
+    /**
+     * Method finds all items which names matches key.
+     * @param key key.
+     * @return List of items.
+     */
     @Override
     public List<Item> findByName(String key) {
         List<Item> result = new ArrayList<>();
+        String sql_insert = "SELECT * FROM item WHERE item_name = ?;";
+        init();
+        try (PreparedStatement pstmt = this.connection.prepareStatement(sql_insert);
+        ResultSet resultSet = pstmt.executeQuery(sql_insert)) {
+            pstmt.setString(1, key);
+            pstmt.executeUpdate();
+            while (resultSet.next()) {
+                result.add(createNewItem(resultSet));
+                }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return result;
     }
 
+    /**
+     * Method finds item which  matches the id.
+     * @param id id.
+     * @return item.
+     */
     @Override
     public Item findById(String id) {
-        return null;
+        Item result = null;
+        String sql_insert = "SELECT * FROM item WHERE item_id = ?;";
+        init();
+        try (PreparedStatement pstmt = this.connection.prepareStatement(sql_insert);
+             ResultSet resultSet = pstmt.executeQuery(sql_insert)) {
+            pstmt.setString(1, id);
+            pstmt.executeUpdate();
+            result = createNewItem(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @Override
@@ -75,8 +173,21 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
     }
 
-    public static void main(String[] args) {
-        TrackerSQL trackerSQL = new TrackerSQL();
-        trackerSQL.add(new Item("12","testName2", "testDesc2"));
+    /**
+     * Method creates new Item object from resultSet.
+     * @param resultSet resultSet.
+     * @return Item object.
+     */
+    private Item createNewItem(ResultSet resultSet) {
+        Item result = null;
+        try {
+            String item_id = resultSet.getString("item_id");
+            String item_name = resultSet.getString("item_name");
+            String item_desc = resultSet.getString("item_desc");
+            result = new Item(item_id, item_name, item_desc);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
