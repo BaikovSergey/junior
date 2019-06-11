@@ -7,7 +7,17 @@ import java.util.Properties;
 
 public class TrackerSQL implements ITracker, AutoCloseable {
 
+    /**
+     * Connection.
+     */
     private Connection connection;
+
+    /**
+     * Constructor.
+     */
+    public TrackerSQL() {
+        init();
+    }
 
     /**
      * Method establishes connection to DB.
@@ -40,7 +50,6 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         int id = Integer.parseInt(item.getId());
         String name = item.getName();
         String desc = item.getDesc();
-        init();
         try (PreparedStatement pstmt = this.connection.prepareStatement(sql_insert)) {
             pstmt.setInt(1, id);
             pstmt.setString(2, name);
@@ -65,7 +74,6 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         int item_id = Integer.parseInt(item.getId());
         String item_name = item.getName();
         String item_desc = item.getDesc();
-        init();
         try (PreparedStatement pstmt = this.connection.prepareStatement(sql_insert)) {
             pstmt.setInt(1, item_id);
             pstmt.setString(2, item_name);
@@ -91,7 +99,6 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         boolean result = false;
         String sql_insert = "DELETE FROM item WHERE item_id = ?;";
         int item_id = Integer.parseInt(id);
-        init();
         try (PreparedStatement pstmt = this.connection.prepareStatement(sql_insert)) {
             pstmt.setInt(1, item_id);
             int sql_result = pstmt.executeUpdate();
@@ -112,7 +119,6 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     public List<Item> findAll() {
         List<Item> result = new ArrayList<>();
         String sql_insert = "SELECT * FROM item;";
-        init();
         try (Statement statement = this.connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(sql_insert)) {
             while (resultSet.next()) {
@@ -133,7 +139,6 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     public List<Item> findByName(String key) {
         List<Item> result = new ArrayList<>();
         String sql_insert = "SELECT * FROM item WHERE item_name = ?;";
-        init();
         try (PreparedStatement pstmt = this.connection.prepareStatement(sql_insert);
         ResultSet resultSet = pstmt.executeQuery(sql_insert)) {
             pstmt.setString(1, key);
@@ -156,7 +161,6 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     public Item findById(String id) {
         Item result = null;
         String sql_insert = "SELECT * FROM item WHERE item_id = ?;";
-        init();
         try (PreparedStatement pstmt = this.connection.prepareStatement(sql_insert);
              ResultSet resultSet = pstmt.executeQuery(sql_insert)) {
             pstmt.setString(1, id);
