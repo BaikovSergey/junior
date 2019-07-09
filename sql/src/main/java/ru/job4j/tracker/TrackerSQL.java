@@ -19,6 +19,10 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         init();
     }
 
+    public TrackerSQL(Connection connection) {
+        this.connection = connection;
+    }
+
     /**
      * Method establishes connection to DB.
      * @return true/false
@@ -46,11 +50,11 @@ public class TrackerSQL implements ITracker, AutoCloseable {
      */
     @Override
     public Item add(Item item) {
-        String sql_insert = "INSERT INTO item(item_id, item_name, item_desc) VALUES (?,?,?);";
+        String sqlInsert = "INSERT INTO item(item_id, item_name, item_desc) VALUES (?,?,?);";
         int id = Integer.parseInt(item.getId());
         String name = item.getName();
         String desc = item.getDesc();
-        try (PreparedStatement pstmt = this.connection.prepareStatement(sql_insert)) {
+        try (PreparedStatement pstmt = this.connection.prepareStatement(sqlInsert)) {
             pstmt.setInt(1, id);
             pstmt.setString(2, name);
             pstmt.setString(3, desc);
@@ -70,17 +74,17 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public boolean replace(String id, Item item) {
         boolean result = false;
-        String sql_insert = "UPDATE item SET item_id = ?, item_name = ?, item_desc = ? WHERE item_id = ?;";
-        int item_id = Integer.parseInt(item.getId());
-        String item_name = item.getName();
-        String item_desc = item.getDesc();
-        try (PreparedStatement pstmt = this.connection.prepareStatement(sql_insert)) {
-            pstmt.setInt(1, item_id);
-            pstmt.setString(2, item_name);
-            pstmt.setString(3, item_desc);
+        String sqlInsert = "UPDATE item SET item_id = ?, item_name = ?, item_desc = ? WHERE item_id = ?;";
+        int itemId = Integer.parseInt(item.getId());
+        String itemName = item.getName();
+        String itemDesc = item.getDesc();
+        try (PreparedStatement pstmt = this.connection.prepareStatement(sqlInsert)) {
+            pstmt.setInt(1, itemId);
+            pstmt.setString(2, itemName);
+            pstmt.setString(3, itemDesc);
             pstmt.setInt(4, Integer.parseInt(id));
-            int sql_result = pstmt.executeUpdate();
-            if (sql_result != 0) {
+            int sqlResult = pstmt.executeUpdate();
+            if (sqlResult != 0) {
                 result = true;
             }
         } catch (SQLException e) {
@@ -97,12 +101,12 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public boolean delete(String id) {
         boolean result = false;
-        String sql_insert = "DELETE FROM item WHERE item_id = ?;";
-        int item_id = Integer.parseInt(id);
-        try (PreparedStatement pstmt = this.connection.prepareStatement(sql_insert)) {
-            pstmt.setInt(1, item_id);
-            int sql_result = pstmt.executeUpdate();
-            if (sql_result != 0) {
+        String sqlInsert = "DELETE FROM item WHERE item_id = ?;";
+        int itemId = Integer.parseInt(id);
+        try (PreparedStatement pstmt = this.connection.prepareStatement(sqlInsert)) {
+            pstmt.setInt(1, itemId);
+            int sqlResult = pstmt.executeUpdate();
+            if (sqlResult != 0) {
                 result = true;
             }
         } catch (SQLException e) {
@@ -118,9 +122,9 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public List<Item> findAll() {
         List<Item> result = new ArrayList<>();
-        String sql_insert = "SELECT * FROM item;";
+        String sqlInsert = "SELECT * FROM item;";
         try (Statement statement = this.connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(sql_insert)) {
+                ResultSet resultSet = statement.executeQuery(sqlInsert)) {
             while (resultSet.next()) {
                 result.add(createNewItem(resultSet));
             }
@@ -138,9 +142,9 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public List<Item> findByName(String key) {
         List<Item> result = new ArrayList<>();
-        String sql_insert = "SELECT * FROM item WHERE item_name = ?;";
-        try (PreparedStatement pstmt = this.connection.prepareStatement(sql_insert);
-        ResultSet resultSet = pstmt.executeQuery(sql_insert)) {
+        String sqlInsert = "SELECT * FROM item WHERE item_name = ?;";
+        try (PreparedStatement pstmt = this.connection.prepareStatement(sqlInsert);
+        ResultSet resultSet = pstmt.executeQuery(sqlInsert)) {
             pstmt.setString(1, key);
             pstmt.executeUpdate();
             while (resultSet.next()) {
@@ -160,9 +164,9 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public Item findById(String id) {
         Item result = null;
-        String sql_insert = "SELECT * FROM item WHERE item_id = ?;";
-        try (PreparedStatement pstmt = this.connection.prepareStatement(sql_insert);
-             ResultSet resultSet = pstmt.executeQuery(sql_insert)) {
+        String sqlInsert = "SELECT * FROM item WHERE item_id = ?;";
+        try (PreparedStatement pstmt = this.connection.prepareStatement(sqlInsert);
+             ResultSet resultSet = pstmt.executeQuery(sqlInsert)) {
             pstmt.setString(1, id);
             pstmt.executeUpdate();
             result = createNewItem(resultSet);
@@ -185,10 +189,10 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     private Item createNewItem(ResultSet resultSet) {
         Item result = null;
         try {
-            String item_id = resultSet.getString("item_id");
-            String item_name = resultSet.getString("item_name");
-            String item_desc = resultSet.getString("item_desc");
-            result = new Item(item_id, item_name, item_desc);
+            String itemId = resultSet.getString("item_id");
+            String itemName = resultSet.getString("item_name");
+            String itemDesc = resultSet.getString("item_desc");
+            result = new Item(itemId, itemName, itemDesc);
         } catch (SQLException e) {
             e.printStackTrace();
         }
