@@ -14,7 +14,7 @@ public class StoreXML {
 
     }
 
-    public void save (Entries entries) {
+    public void save(Entries entries) {
         try {
             File file = new File(this.path);
             JAXBContext jaxbContext = JAXBContext.newInstance(Entries.class);

@@ -2,7 +2,7 @@ package ru.job4j.magnit;
 
 import javax.xml.bind.annotation.*;
 
-@XmlRootElement(name="Entry")
+@XmlRootElement(name = "Entry")
 @XmlAccessorType(XmlAccessType.FIELD)
     public class Entry {
 
