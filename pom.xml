@@ -26,6 +26,18 @@
             </properties>
         </profile>
     </profiles>
+    <profile>
+        <id>travis</id>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
+        <properties>
+            <db.url>jdbc:postgresql://localhost/tracker</db.url>
+            <db.username>postgres</db.username>
+            <db.password></db.password>
+            <db.driver>org.postgresql.Driver</db.driver>
+        </properties>
+    </profile>
     <properties>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
