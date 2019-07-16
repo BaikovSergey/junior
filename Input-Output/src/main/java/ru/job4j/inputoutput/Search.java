@@ -43,18 +43,4 @@ public class Search {
         }
         return result;
     }
-
-    public static void main(String[] args) throws IOException {
-        final File TEMP_DIRECTORY = new File(System.getProperty("java.io.tmpdir"));
-        Path tempDirPath = Paths.get(TEMP_DIRECTORY.getAbsolutePath() + "\\test");
-        Files.createDirectory(tempDirPath);
-        Path firstTemp = Paths.get(TEMP_DIRECTORY.getAbsolutePath() + "\\test" + "\\1.txt");
-        Files.createFile(firstTemp);
-        Path secondTemp = Paths.get(TEMP_DIRECTORY.getAbsolutePath() + "\\test" + "\\2.txt");
-        Files.createFile(secondTemp);
-        Path thirdTemp = Paths.get(TEMP_DIRECTORY.getAbsolutePath() + "\\test" + "\\3.txt");
-        Files.createFile(thirdTemp);
-        Path fourthTemp = Paths.get(TEMP_DIRECTORY.getAbsolutePath() + "\\test" + "\\4.docx");
-        Files.createFile(fourthTemp);
-    }
 }
