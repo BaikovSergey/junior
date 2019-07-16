@@ -1,10 +1,13 @@
-<project>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>ru.job4j</groupId>
-    <artifactId>junior_001</artifactId>
+    <artifactId>junior_pro</artifactId>
     <packaging>pom</packaging>
-    <version>2.0</version>
-    <name>junior_001</name>
+    <version>1.0</version>
+    <name>junior_pro</name>
     <url>http://job4j.ru/</url>
 
     <profiles>
@@ -59,7 +62,6 @@
     <artifactId>javafx-base</artifactId>
     <version>11</version>
 </dependency>
-
     <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
     <dependency>
         <groupId>org.mockito</groupId>
