@@ -1,17 +1,9 @@
 package ru.job4j.inputoutput;
 
-import javafx.scene.shape.Path;
+
 import org.junit.Test;
-
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.stream.Stream;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
-
 public class AnalizyTest {
 
     @Test
@@ -32,7 +24,6 @@ public class AnalizyTest {
         );
         Analizy analizy = new Analizy();
         analizy.unavailable(serverlog.getAbsolutePath(), result.getAbsolutePath());
-        //assertThat( is ("hibernate.dialect"));
         serverlog.deleteOnExit();
         result.deleteOnExit();
     }
