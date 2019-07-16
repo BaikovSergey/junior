@@ -16,10 +16,10 @@ public class OracleServer {
     }
 
     public void start() {
-        try (PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+        try (PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
+             BufferedReader in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()))) {
 
-            String ask = null;
+            String ask = "";
 
             do {
                 System.out.println("wait command ...");
