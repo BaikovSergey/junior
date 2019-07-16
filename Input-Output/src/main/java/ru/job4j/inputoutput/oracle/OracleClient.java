@@ -26,8 +26,8 @@ public class OracleClient {
 
             do {
                 out.println("Hello oracle");
-                String str = in.readLine();
-                while (!str.isEmpty()) {
+                String str;
+                while (!(str = in.readLine()).isEmpty()) {
                     System.out.println(str);
                 }
             } while ("exit".equals(console.nextLine()));

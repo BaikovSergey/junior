@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/BaikovSergey/junior.svg?branch=master)](https://travis-ci.org/BaikovSergey/junior)
-
+[![codecov](https://codecov.io/gh/BaikovSergey/junior/branch/master/graph/badge.svg)](https://codecov.io/gh/BaikovSergey/junior)
 # junior
 This repository contains junior tasks.
 Chapter_1 - Collections pro

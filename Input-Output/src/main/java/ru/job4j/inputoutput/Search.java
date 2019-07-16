@@ -1,6 +1,10 @@
 package ru.job4j.inputoutput;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,9 +42,5 @@ public class Search {
             }
         }
         return result;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(System.getProperty("java.io.tmpdir"));
     }
 }
