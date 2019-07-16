@@ -2,8 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ru.job4j</groupId>
     <artifactId>junior_001</artifactId>
-    <packaging>pom</packaging>
-    <version>2.0</version>
+    <version>1.0</version>
     <name>junior_001</name>
     <url>http://job4j.ru/</url>
 
