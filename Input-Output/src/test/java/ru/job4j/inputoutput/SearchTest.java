@@ -43,12 +43,12 @@ public class SearchTest {
     }
 
     @Test
-    public void whenFolderContainFilesThen1txt2txt3txt() {
+    public void whenFolderContainFilesThen1txt2txt3txt4docx() {
         Search test = new Search();
         List<String> extensions = new ArrayList<>();
         extensions.add(".txt");
         extensions.add(".docx");
-        List<File> result = test.files(tempDirectory.getAbsolutePath() + "\\test", extensions);
+        List<File> result = test.files(tempDirectory.getAbsolutePath() + File.separator + "test", extensions);
         assertThat(result.get(0).getName(), is("1.txt"));
         assertThat(result.get(1).getName(), is("2.txt"));
         assertThat(result.get(2).getName(), is("3.txt"));
