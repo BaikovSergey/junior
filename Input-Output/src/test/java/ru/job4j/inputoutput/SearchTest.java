@@ -20,31 +20,26 @@ public class SearchTest {
 
     @Before
     public void createTempFiles() throws IOException {
-        Path tempDirPath = Paths.get(tempDirectory.getAbsolutePath() + "\\test");
-        Files.createDirectory(tempDirPath);
-        Path firstTemp = Paths.get(tempDirectory.getAbsolutePath() + "\\test" + "\\1.txt");
-        Files.createFile(firstTemp);
-        Path secondTemp = Paths.get(tempDirectory.getAbsolutePath() + "\\test" + "\\2.txt");
-        Files.createFile(secondTemp);
-        Path thirdTemp = Paths.get(tempDirectory.getAbsolutePath() + "\\test" + "\\3.txt");
-        Files.createFile(thirdTemp);
-        Path fourthTemp = Paths.get(tempDirectory.getAbsolutePath() + "\\test" + "\\4.docx");
-        Files.createFile(fourthTemp);
-    }
+        File testDir = new File(tempDirectory + File.separator + "test");
+        boolean test = testDir.mkdir();
+        testDir.deleteOnExit();
+        File first = new File(tempDirectory + File.separator + "test" + File.separator + "1.txt");
+        first.createNewFile();
+        first.setReadable(true);
+        first.deleteOnExit();
+        File second = new File(tempDirectory + File.separator + "test" + File.separator + "2.txt");
+        second.createNewFile();
+        second.setReadable(true);
+        second.deleteOnExit();
+        File third = new File(tempDirectory + File.separator + "test" + File.separator + "3.txt");
+        third.createNewFile();
+        third.setReadable(true);
+        third.deleteOnExit();
+        File fourth = new File(tempDirectory + File.separator + "test" + File.separator + "4.docx");
+        fourth.createNewFile();
+        fourth.setReadable(true);
+        fourth.deleteOnExit();
 
-    @After
-    public void deleteTempFiles() throws IOException {
-
-        Path firstTemp = Paths.get(tempDirectory.getAbsolutePath() + "\\test" + "\\1.txt");
-        Files.delete(firstTemp);
-        Path secondTemp = Paths.get(tempDirectory.getAbsolutePath() + "\\test" + "\\2.txt");
-        Files.delete(secondTemp);
-        Path thirdTemp = Paths.get(tempDirectory.getAbsolutePath() + "\\test" + "\\3.txt");
-        Files.delete(thirdTemp);
-        Path fourthTemp = Paths.get(tempDirectory.getAbsolutePath() + "\\test" + "\\4.docx");
-        Files.delete(fourthTemp);
-        Path tempDirPath = Paths.get(tempDirectory.getAbsolutePath() + "\\test");
-        Files.delete(tempDirPath);
     }
 
     @Test
