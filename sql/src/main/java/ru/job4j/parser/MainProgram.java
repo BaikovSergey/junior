@@ -13,7 +13,7 @@ import org.quartz.JobExecutionException;
 public class MainProgram implements Job {
 
     private PostgreSQL postgreSQL = new PostgreSQL();
-    private SQLRuParser SQLRuParser = new SQLRuParser();
+    private SQLRuParser sqlRuParser = new SQLRuParser();
 
     /**
      * Log log4J
@@ -43,14 +43,14 @@ public class MainProgram implements Job {
                 int page = 1;
                 while (!getCurrentYear().equals(this.vacancies.get(this.vacancies.size() - 1).get(2))) {
                     SQLRuParserConfig info = new SQLRuParserConfig();
-                    this.vacancies.add(SQLRuParser.parseData(info.getDocument(page)));
+                    this.vacancies.add(sqlRuParser.parseData(info.getDocument(page)));
                     LOG.info("Page " + page + "is parsed");
                     page++;
                 }
             LOG.info("First app run");
         } else {
             SQLRuParserConfig info = new SQLRuParserConfig();
-            this.vacancies.add(SQLRuParser.parseData(info.getDocument(1)));
+            this.vacancies.add(sqlRuParser.parseData(info.getDocument(1)));
                 }
            LOG.info("Second app run");
             addToDB(this.vacancies);

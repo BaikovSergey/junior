@@ -2,7 +2,7 @@ package ru.job4j.parser;
 
 import java.sql.*;
 
-public class PostgreSQL implements Store{
+public class PostgreSQL implements Store {
     private final ConfigSQLRuParser configSQLRuParser;
     private Connection connection;
 
