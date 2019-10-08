@@ -7,6 +7,7 @@ public class Food {
     private String createDate;
     private double price;
     private int discount;
+    private boolean reproduce;
 
     public Food(String name, String expireDate, String createDate, double price, int discount) {
         this.name = name;
@@ -54,5 +55,13 @@ public class Food {
 
     public void setDiscount(int discount) {
         this.discount = discount;
+    }
+
+    public boolean getReproduce() {
+        return reproduce;
+    }
+
+    public void setReproduce(boolean reproduce) {
+        this.reproduce = reproduce;
     }
 }
