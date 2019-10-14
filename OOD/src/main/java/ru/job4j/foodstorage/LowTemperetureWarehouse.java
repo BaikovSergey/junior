@@ -17,7 +17,7 @@ public class LowTemperetureWarehouse extends StorageDecorator {
     @Override
     public boolean acceptFood(Food food, int percent) {
         boolean result = false;
-        if (percent > 75 && percent < 100 && food.getReproduct && isVegetable(food.getName())) {
+        if (percent > 75 && percent < 100 && food.getReproduce() && isVegetable(food.getName())) {
             result = true;
         }
         return result;
