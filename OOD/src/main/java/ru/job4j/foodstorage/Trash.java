@@ -3,7 +3,7 @@ package ru.job4j.foodstorage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Trash implements Storage {
+public class Trash implements Storage, StorageRestore {
 
     List<Food> trash = new ArrayList<>();
 
@@ -19,5 +19,12 @@ public class Trash implements Storage {
             result = true;
         }
         return result;
+    }
+
+    @Override
+    public List<Food> takeBackFood() {
+        List<Food> list = new ArrayList<>(this.trash);
+        this.trash.clear();
+        return list;
     }
 }

@@ -4,11 +4,14 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ControlQuality {
 
     private Storage storage;
+    
+    private StorageRestore storageRestore;
 
     public void setStorage(Storage storage) {
         this.storage = storage;
@@ -33,6 +36,16 @@ public class ControlQuality {
                 storage.takeFood(f);
             }
         }
+    }
+
+    public void resort() {
+        List<Food> foodList = new ArrayList<>();
+        List<StorageRestore> storages = Arrays.asList(new Trash(), new Warehouse(), new Shop(),
+                new LowTemperetureWarehouse(storage), new NewWarehouse(storage));
+        for (StorageRestore storageRestore : storages) {
+            foodList.addAll(storageRestore.takeBackFood());
+        }
+        this.foodStorage(foodList);
     }
 
     public static void main(String[] args) {

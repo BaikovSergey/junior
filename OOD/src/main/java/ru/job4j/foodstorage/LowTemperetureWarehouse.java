@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class LowTemperetureWarehouse extends StorageDecorator {
+public class LowTemperetureWarehouse extends StorageDecorator implements StorageRestore {
 
     List<Food> lowTemperatureWarehouse = new ArrayList<>();
 
@@ -34,5 +34,12 @@ public class LowTemperetureWarehouse extends StorageDecorator {
             result = true;
         }
         return result;
+    }
+
+    @Override
+    public List<Food> takeBackFood() {
+        List<Food> list = new ArrayList<>(this.lowTemperatureWarehouse);
+        this.lowTemperatureWarehouse.clear();
+        return list;
     }
 }
