@@ -30,9 +30,9 @@ public class ControlQuality {
 
     public void foodStorage(List<Food> food) {
         ControlQuality control = new ControlQuality();
-        for(Food f: food) {
+        for (Food f: food) {
             int percent = control.getPercent(f.getCreateDate(), f.getExpireDate());
-            if(storage.acceptFood(f, percent)) {
+            if (storage.acceptFood(f, percent)) {
                 storage.takeFood(f);
             }
         }

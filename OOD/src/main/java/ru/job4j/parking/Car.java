@@ -1,6 +1,6 @@
-package ru.job4j.Parking;
+package ru.job4j.parking;
 
-public class Car implements ICar{
+public class Car implements ICar {
 
     /**
      * Contains car ID.
@@ -32,7 +32,7 @@ public class Car implements ICar{
     }
 
     /**
-     * Parking space getter.
+     * parking space getter.
      * @return parking space.
      */
     @Override

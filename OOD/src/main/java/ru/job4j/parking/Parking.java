@@ -1,10 +1,10 @@
-package ru.job4j.Parking;
+package ru.job4j.parking;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class Parking implements IParking{
+public class Parking implements IParking {
     /**
      * Contains cars in parking.
      */
@@ -23,7 +23,7 @@ public class Parking implements IParking{
     /**
      * Method parks a car. If attempt to park a truck and where is no space for it,
      * park it on free car space if available.
-     * @param car Parking car.
+     * @param car parking car.
      * @return {@code true} if car is not in parking and where is free space for it, {@code false} otherwise.
      */
     @Override

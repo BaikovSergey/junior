@@ -1,4 +1,4 @@
-package ru.job4j.Parking;
+package ru.job4j.parking;
 
 public interface ICar {
 

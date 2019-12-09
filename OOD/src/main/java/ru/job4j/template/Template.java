@@ -11,7 +11,7 @@ public class Template implements ITemplate {
     /**
      * Contains regEx to find in string e.g. ${name}.
      */
-    private final Pattern KEYS = Pattern.compile("\\$\\{(.*?)}");
+    private final Pattern keys = Pattern.compile("\\$\\{(.*?)}");
 
     /**
      * Replaces each substring of this string that matches the given regEx with the given replacement.
@@ -22,7 +22,7 @@ public class Template implements ITemplate {
     @Override
     public String generate(String template, HashMap<String, String> data) {
         String result = template;
-        Matcher matcher = this.KEYS.matcher(template);
+        Matcher matcher = this.keys.matcher(template);
         ArrayList<String> list = findAllMatches(matcher);
         if (listContainsKeys(list, data)) {
             matcher.reset();
@@ -57,7 +57,7 @@ public class Template implements ITemplate {
     private boolean listContainsKeys(ArrayList<String> listOfKeys, HashMap<String, String> data) {
         boolean result = true;
         for (Map.Entry<String, String> entry : data.entrySet()) {
-            if(!listOfKeys.contains(entry.getKey())) {
+            if (!listOfKeys.contains(entry.getKey())) {
                 result = false;
                 break;
             }

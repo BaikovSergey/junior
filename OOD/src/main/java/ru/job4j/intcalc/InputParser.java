@@ -38,7 +38,7 @@ public class InputParser {
                 }
             }
             this.strings.add(getSymbol(string.split("")));
-        } else if (string.contains("sin") || string.contains("cos") || string.contains("log")){
+        } else if (string.contains("sin") || string.contains("cos") || string.contains("log")) {
             result = true;
             this.doubles.add(Double.parseDouble(string.substring(3)));
             this.strings.add(string.substring(0, 3));
