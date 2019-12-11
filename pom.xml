@@ -40,6 +40,7 @@
         <module>collections_pro</module>
         <module>Input-Output</module>
         <module>sql</module>
+        <module>Grabage_Collection</module>
     </modules>
 <dependencies>
     <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
