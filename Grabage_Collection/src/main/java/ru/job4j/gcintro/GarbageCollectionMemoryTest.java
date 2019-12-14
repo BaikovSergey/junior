@@ -1,5 +1,7 @@
 package ru.job4j.gcintro;
 
+import com.ibm.icu.math.BigDecimal;
+
 public class GarbageCollectionMemoryTest {
 
     public static class User {
@@ -12,14 +14,14 @@ public class GarbageCollectionMemoryTest {
 
 
         public static void info() {
-            int b = 1;
+            int m = 1024 * 1024;
             Runtime runtime = Runtime.getRuntime();
             System.out.println();
             System.out.println("Heap memory usage[KB]");
-            System.out.println("Total memory: " + runtime.totalMemory() / b);
-            System.out.println("Free memory: " + runtime.freeMemory() / b);
-            System.out.println("Used memory: " + (runtime.totalMemory() - runtime.freeMemory()) / b);
-            System.out.println("Maximum memory: " + runtime.maxMemory() / b);
+            System.out.println("Total memory: " + runtime.totalMemory() / m);
+            System.out.println("Free memory: " + runtime.freeMemory() / m);
+            System.out.println("Used memory: " + (runtime.totalMemory() - runtime.freeMemory()) / m);
+            System.out.println("Maximum memory: " + runtime.maxMemory() / m);
             System.out.println();
         }
     }
@@ -28,10 +30,9 @@ public class GarbageCollectionMemoryTest {
 
     public static void main(String[] args) {
         User.info();
-        User user1 = new User();
-        System.out.println(user1);
-        user1 = null;
-//        System.gc();
+        BigDecimal[] num = new BigDecimal[10];
+        num = num;
+        System.gc();
         User.info();
     }
 }
