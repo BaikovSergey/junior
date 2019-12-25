@@ -3,6 +3,7 @@ package ru.job4j.cache;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.lang.ref.SoftReference;
 
 /**
  * @author Sergey Baikov
@@ -19,14 +20,12 @@ public class CachedFiles {
      * @param fileName file name.
      */
     public void printFromCache(String filePath, String fileName) {
-        SoftRefCache<String, StringBuffer> cache = new SoftRefCache<>();
-        StringBuffer text = getFileData(filePath, fileName);
-        if (text != null) {
-            System.out.println(text);
+        SoftReference<StringBuffer> data = this.cache.get(fileName);
+        if (data != null) {
+            System.out.println(data.get());
         } else {
             addToCache(filePath, fileName);
-            text = cache.get(fileName).get();
-            System.out.println(text);
+            System.out.println(getFileData(filePath, fileName));
         }
     }
 
