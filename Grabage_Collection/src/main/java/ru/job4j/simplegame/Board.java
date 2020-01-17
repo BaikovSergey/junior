@@ -1,26 +1,21 @@
 package ru.job4j.simplegame;
 
+import java.util.ArrayList;
+
 public class Board implements GameBoard {
 
-    private static Board instance;
+    private ArrayList<Cell> path = new ArrayList<>();
 
-    private Board() {
+    public ArrayList<Cell> getPath() {
+        return path;
     }
 
-    public static Board getInstance() {
-        if (instance == null) {
-            instance = new Board();
-        }
-        return instance;
-    }
-
-    @Override
-    public void putTokensOnStart() {
-        throw new Error("Unimplemented");
+    public void setPath(ArrayList<Cell> path) {
+        this.path = path;
     }
 
     @Override
-    public void movePlayerToken() {
+    public void putCell(Cell cell) {
         throw new Error("Unimplemented");
     }
 }

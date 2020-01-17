@@ -4,5 +4,5 @@ public interface BoardGame {
 
     void init();
 
-    void startAGame();
+    void start();
 }

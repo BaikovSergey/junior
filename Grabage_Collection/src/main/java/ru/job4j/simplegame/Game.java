@@ -8,13 +8,13 @@ public class Game implements BoardGame{
     }
 
     @Override
-    public void startAGame() {
+    public void start() {
         throw new Error("Unimplemented");
     }
 
     public static void main(String[] args) {
         Game game = new Game();
         game.init();
-        game.startAGame();
+        game.start();
     }
 }
