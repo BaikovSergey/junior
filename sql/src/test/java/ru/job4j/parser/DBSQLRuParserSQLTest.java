@@ -8,8 +8,8 @@ public class DBSQLRuParserSQLTest {
 
     @Test
     public void testConnection() {
-        PostgreSQL PostgreSQL = new PostgreSQL();
-        assertThat(PostgreSQL.connectToDB(), is(true));
+        PostgreSQL postgreSQL = new PostgreSQL();
+        assertThat(postgreSQL.connectToDB(), is(true));
     }
 
     @Test

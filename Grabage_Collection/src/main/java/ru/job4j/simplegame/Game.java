@@ -1,6 +1,6 @@
 package ru.job4j.simplegame;
 
-public class Game implements BoardGame{
+public class Game implements BoardGame {
 
     @Override
     public void init() {

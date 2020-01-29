@@ -16,7 +16,7 @@ public class AnalizyTest {
     final File tempDirectory = new File(System.getProperty("java.io.tmpdir"));
 
     @Before
-    public void preaper() throws IOException{
+    public void preaper() throws IOException {
         File unavailable = new File(tempDirectory + File.separator + "unavailable.txt");
         unavailable.createNewFile();
         FileWriter writer = new FileWriter(unavailable);
@@ -45,7 +45,7 @@ public class AnalizyTest {
         Analizy test = new Analizy();
         test.unavailable(tempDirectory + File.separator + "unavailable.txt",
                 tempDirectory + File.separator + "result.txt");
-        try (BufferedReader reader = new BufferedReader(new FileReader(tempDirectory + File.separator + "result.txt"))){
+        try (BufferedReader reader = new BufferedReader(new FileReader(tempDirectory + File.separator + "result.txt"))) {
             reader.lines().forEach(result::add);
         } catch (IOException e) {
             e.printStackTrace();
