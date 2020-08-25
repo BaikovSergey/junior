@@ -51,9 +51,9 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public Item add(Item item) {
         String sqlInsert = "INSERT INTO item(item_id, item_name, item_desc) VALUES (?,?,?);";
-        int id = Integer.parseInt(item.getId());
+        int id = item.getId();
         String name = item.getName();
-        String desc = item.getDesc();
+        String desc = item.getDescription();
         try (PreparedStatement pstmt = this.connection.prepareStatement(sqlInsert)) {
             pstmt.setInt(1, id);
             pstmt.setString(2, name);
@@ -72,17 +72,17 @@ public class TrackerSQL implements ITracker, AutoCloseable {
      * @return true/false.
      */
     @Override
-    public boolean replace(String id, Item item) {
+    public boolean replace(int id, Item item) {
         boolean result = false;
         String sqlInsert = "UPDATE item SET item_id = ?, item_name = ?, item_desc = ? WHERE item_id = ?;";
-        int itemId = Integer.parseInt(item.getId());
+        int itemId = item.getId();
         String itemName = item.getName();
-        String itemDesc = item.getDesc();
+        String itemDesc = item.getDescription();
         try (PreparedStatement pstmt = this.connection.prepareStatement(sqlInsert)) {
             pstmt.setInt(1, itemId);
             pstmt.setString(2, itemName);
             pstmt.setString(3, itemDesc);
-            pstmt.setInt(4, Integer.parseInt(id));
+            pstmt.setInt(4, id);
             int sqlResult = pstmt.executeUpdate();
             if (sqlResult != 0) {
                 result = true;
@@ -99,12 +99,11 @@ public class TrackerSQL implements ITracker, AutoCloseable {
      * @return true/false.
      */
     @Override
-    public boolean delete(String id) {
+    public boolean delete(int id) {
         boolean result = false;
         String sqlInsert = "DELETE FROM item WHERE item_id = ?;";
-        int itemId = Integer.parseInt(id);
         try (PreparedStatement pstmt = this.connection.prepareStatement(sqlInsert)) {
-            pstmt.setInt(1, itemId);
+            pstmt.setInt(1, id);
             int sqlResult = pstmt.executeUpdate();
             if (sqlResult != 0) {
                 result = true;
@@ -162,12 +161,12 @@ public class TrackerSQL implements ITracker, AutoCloseable {
      * @return item.
      */
     @Override
-    public Item findById(String id) {
+    public Item findById(int id) {
         Item result = null;
         String sqlInsert = "SELECT * FROM item WHERE item_id = ?;";
         try (PreparedStatement pstmt = this.connection.prepareStatement(sqlInsert);
              ResultSet resultSet = pstmt.executeQuery(sqlInsert)) {
-            pstmt.setString(1, id);
+            pstmt.setInt(1, id);
             pstmt.executeUpdate();
             result = createNewItem(resultSet);
         } catch (SQLException e) {
@@ -189,10 +188,9 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     private Item createNewItem(ResultSet resultSet) {
         Item result = null;
         try {
-            String itemId = resultSet.getString("item_id");
             String itemName = resultSet.getString("item_name");
             String itemDesc = resultSet.getString("item_desc");
-            result = new Item(itemId, itemName, itemDesc);
+            result = new Item(itemName, itemDesc);
         } catch (SQLException e) {
             e.printStackTrace();
         }

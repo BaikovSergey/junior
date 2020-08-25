@@ -127,7 +127,7 @@ public class MenuTracker {
             String name = input.ask("Введите имя новой заявки: ");
             String desc = input.ask("Введите описание заявки :");
             Item item = new Item(name, desc);
-            if (tracker.replace(id, item)) {
+            if (tracker.replace(Integer.parseInt(id), item)) {
                 output.accept("------------ Заявка успешно заменена -----------");
                 output.accept("Имя заявки: " + name);
                 output.accept("Id заявки: " + id);
@@ -147,7 +147,7 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             output.accept("------------ Удаление заявки --------------");
             String id = input.ask("Введите Id заявки :");
-            if (tracker.delete(id)) {
+            if (tracker.delete(Integer.parseInt(id))) {
                 output.accept("------------ Заявка с Id: " + id + " удалена -----------");
             } else {
                 output.accept("------------ Ошибка. Заявка с Id: " + id + " не найдена -----------");
@@ -165,7 +165,7 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             output.accept("------------ Поиск заявки по Id --------------");
             String id = input.ask("Введите Id заявки :");
-            Item finds = tracker.findById(id);
+            Item finds = tracker.findById(Integer.parseInt(id));
             if (finds != null && finds.getId().equals(id)) {
                 output.accept("------------ Заявка с Id: " + id + " -----------");
                 System.out.println(finds.toString());

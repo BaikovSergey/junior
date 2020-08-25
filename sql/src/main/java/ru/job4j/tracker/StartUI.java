@@ -1,8 +1,6 @@
 package ru.job4j.tracker;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -95,7 +93,7 @@ public class StartUI {
         String name = this.input.ask("Введите имя новой заявки: ");
         String desc = this.input.ask("Введите описание заявки :");
         Item item = new Item(name, desc);
-        if (tracker.replace(id, item)) {
+        if (tracker.replace(Integer.parseInt(id), item)) {
             output.accept("------------ Заявка успешно заменена -----------");
             output.accept("Имя заявки: " + name);
             output.accept("Id заявки: " + id);
@@ -110,7 +108,7 @@ public class StartUI {
     private void deleteItem() {
         output.accept("------------ Удаление заявки --------------");
         String id = this.input.ask("Введите Id заявки :");
-        if (tracker.delete(id)) {
+        if (tracker.delete(Integer.parseInt(id))) {
             output.accept("------------ Заявка с Id: " + id + " удалена -----------");
         } else {
             output.accept("------------ Ошибка. Заявка с Id: " + id + " не найдена -----------");
@@ -123,7 +121,7 @@ public class StartUI {
     private void findItemById() {
         output.accept("------------ Поиск заявки по Id --------------");
         String id = this.input.ask("Введите Id заявки :");
-        Item founds = tracker.findById(id);
+        Item founds = tracker.findById(Integer.parseInt(id));
         if (founds != null && founds.getId().equals(id)) {
             output.accept("------------ Заявка с Id: " + id + " -----------");
             output.accept(founds.toString());

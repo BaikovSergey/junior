@@ -2,7 +2,7 @@ package ru.job4j.tracker;
 
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 public class TrackerTest {
@@ -51,7 +51,7 @@ public class TrackerTest {
         Item previous = new Item("test1", "testDescription");
         tracker.add(previous);
         Item test = new Item("add", "testAdd");
-        tracker.replace("123", test);
+        tracker.replace(123, test);
         assertThat(tracker.findAll().get(0).getName(), is("test1"));
     }
     /**

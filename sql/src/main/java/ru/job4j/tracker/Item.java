@@ -1,51 +1,32 @@
 package ru.job4j.tracker;
 
+import javax.persistence.*;
+import java.util.Objects;
+
+@Entity
+@Table(name = "items")
 public class Item {
-
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column(name = "name")
     private String name;
-    private String desc;
-    private long created;
-    private String[] comments;
+    @Column(name = "description")
+    private String description;
 
-    @Override
-    public String toString() {
-       return (new StringBuilder()
-                .append("Имя заявки: ")
-                .append(this.name)
-                .append(System.lineSeparator())
-                .append("Id заявки: ")
-                .append(this.id)
-                .append(System.lineSeparator())
-                .append("Описание заявки: ")
-                .append(this.desc))
-                .toString();
-
+    public Item() {
     }
 
-    public Item(String name, String desc) {
+    public Item(String name, String description) {
         this.name = name;
-        this.desc = desc;
+        this.description = description;
     }
 
-    public Item(String id, String name, String desc) {
-        this.id = id;
-        this.name = name;
-        this.desc = desc;
-    }
-
-    public Item(String name, String desc, long created) {
-        this.name = name;
-        this.desc = desc;
-        this.created = created;
-    }
-
-
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -57,27 +38,41 @@ public class Item {
         this.name = name;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String desc) {
+        this.description = desc;
     }
 
-    public long getCreated() {
-        return created;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Item item = (Item) o;
+        return Objects.equals(id, item.id)
+                && Objects.equals(name, item.name);
     }
 
-    public void setCreated(long created) {
-        this.created = created;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 
-    public String[] getComments() {
-        return comments;
-    }
-
-    public void setComments(String[] comments) {
-        this.comments = comments;
+    @Override
+    public String toString() {
+        return "Item{"
+                + "id="
+                + id
+                + ", name='"
+                + name
+                + '\''
+                + ", description='" + description + '\''
+                + '}';
     }
 }

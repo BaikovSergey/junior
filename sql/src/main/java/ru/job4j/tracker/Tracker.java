@@ -19,6 +19,7 @@ public class Tracker implements ITracker {
      * Метод реализаущий добавление заявки в хранилище
      * @param item новая заявка
      */
+    @Override
     public Item add(Item item) {
         item.setId(this.generateId());
         this.items.add(item);
@@ -30,8 +31,8 @@ public class Tracker implements ITracker {
      * Так как у заявки нет уникальности полей, имени и описание. Для идентификации нам нужен уникальный ключ.
      * @return Уникальный ключ.
      */
-    private String generateId() {
-        return  String.valueOf((int) (Math.random() * 100));
+    private int generateId() {
+        return  (int)(Math.random() * 100);
     }
 
     /**
@@ -39,16 +40,17 @@ public class Tracker implements ITracker {
      * @param id id заявки, которую необходимо заменить.
      * @param item новая заявка.
      */
-    public boolean replace(String id, Item item) {
+    @Override
+    public boolean replace(int id, Item item) {
         boolean result = false;
         Item find = items
                 .stream()
                 .filter(Objects::nonNull)
-                .filter(s -> s.getId().equals(id))
+                .filter(s -> s.getId()==(id))
                 .findAny()
                 .orElse(null);
         if (find != null) {
-            String itemId = find.getId();
+            int itemId = find.getId();
             item.setId(itemId);
             this.items.set(this.items.indexOf(find), item);
             result = true;
@@ -60,12 +62,13 @@ public class Tracker implements ITracker {
      * Метод удаляет ячейку в списке this.items.
      * @param id id.
      */
-    public boolean delete(String id) {
+    @Override
+    public boolean delete(int id) {
         boolean result = false;
         Item find = items
                 .stream()
                 .filter(Objects::nonNull)
-                .filter(s -> s.getId().equals(id))
+                .filter(s -> s.getId()==(id))
                 .findAny()
                 .orElse(null);
         if (find != null) {
@@ -79,6 +82,7 @@ public class Tracker implements ITracker {
      * Метод возвращает копию списка в виде массива this.items без null элементов.
      * @return массив.
      */
+    @Override
     public List<Item> findAll() {
         return this.items;
     }
@@ -89,6 +93,7 @@ public class Tracker implements ITracker {
      * Элементы, у которых совпадает name, копирует в результирующий список и возвращает его.
      * @return список элементов.
      */
+    @Override
     public List<Item> findByName(String key) {
         ArrayList<Item> finds = new ArrayList<>();
         items
@@ -105,11 +110,12 @@ public class Tracker implements ITracker {
      * Если Item не найден - возвращает null.
      * @return искомую заявку.
      */
-    public Item findById(String id) {
+    @Override
+    public Item findById(int id) {
         return items
                 .stream()
                 .filter(Objects::nonNull)
-                .filter(s -> s.getId().equals(id))
+                .filter(s -> s.getId()==(id))
                 .findAny()
                 .orElse(null);
     }

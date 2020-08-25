@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -8,8 +9,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-
-import static org.hamcrest.Matchers.is;
 
 public class TrackerSQLTest {
     @Test
